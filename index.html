@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRANZ // 18 - Midnight Scrapbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        midnight: '#0a0b10',
+                        asphalt: '#111111',
+                        amberGlow: '#f59e0b',
+                        neonBlue: '#818cf8',
+                        paper: '#fdfaf6',
+                    },
+                    fontFamily: {
+                        typewriter: ['Courier Prime', 'monospace'],
+                        handwritten: ['Caveat', 'cursive'],
+                        marker: ['Permanent Marker', 'cursive'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #0a0b10;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Film Grain / Noise Overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Polaroid Element */
+        .polaroid {
+            background: #fff;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.2);
+            z-index: 10;
+        }
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.1) grayscale(0.2);
+        }
+        .polaroid-caption {
+            font-family: 'Caveat', cursive;
+            color: #333;
+            text-align: center;
+            font-size: 1.5rem;
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+        }
+
+        /* Masking Tape */
+        .tape {
+            position: absolute;
+            width: 100px;
+            height: 25px;
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+            z-index: 5;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+        }
+
+        /* Notebook Paper */
+        .notebook-paper {
+            background-color: #fdfaf6;
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #cbd5e1 31px, #cbd5e1 32px);
+            background-size: 100% 32px;
+            position: relative;
+            color: #334155;
+            box-shadow: 2px 4px 15px rgba(0,0,0,0.5);
+            padding-top: 32px;
+        }
+        .notebook-paper::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 40px;
+            width: 2px;
+            background-color: #fca5a5;
+        }
+
+        /* Ticket Style for RSVP */
+        .gig-ticket {
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.1);
+        }
+        @media (min-width: 640px) {
+            .gig-ticket { flex-direction: row; }
+        }
+        .ticket-stub {
+            border-top: 2px dashed #475569;
+            background: #0f172a;
+        }
+        @media (min-width: 640px) {
+            .ticket-stub {
+                border-top: none;
+                border-left: 2px dashed #475569;
+            }
+        }
+
+        /* Custom glow */
+        .glow-text-amber {
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+        }
+        .glow-text-neon {
+            text-shadow: 0 0 15px rgba(129, 140, 248, 0.6);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0b10; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+
+        /* Fullscreen Intro */
+        #intro-screen {
+            background-image: url('cover.jpeg'); /* Requested image */
+            background-color: #0f172a; /* Fallback */
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.5s ease, visibility 1.5s;
+        }
+        #intro-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #intro-overlay {
+            background: linear-gradient(to bottom, rgba(10,11,16,0.3) 0%, rgba(10,11,16,0.9) 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-amberGlow selection:text-asphalt">
+
+    <div class="grain-overlay"></div>
+    <canvas id="stars-canvas" class="fixed inset-0 pointer-events-none z-[-1] opacity-60"></canvas>
+
+    <div class="fixed top-6 right-6 z-50">
+        <button id="audio-toggle" class="flex items-center gap-2 px-3 py-2 bg-asphalt/80 border border-gray-700 rounded text-xs font-typewriter text-gray-300 hover:text-amberGlow hover:border-amberGlow transition-colors backdrop-blur-md">
+            <i class="fa-solid fa-compact-disc animate-spin-slow" id="audio-icon"></i>
+            <span id="audio-status">PAUSED</span>
+        </button>
+    </div>
+
+    <section id="intro-screen" class="fixed inset-0 z-40 flex flex-col items-center justify-center cursor-pointer group">
+        <div id="intro-overlay" class="absolute inset-0"></div>
+        
+        <div class="z-10 text-center flex flex-col items-center h-full justify-center">
+            <h1 class="font-marker text-7xl sm:text-9xl tracking-wider text-white glow-text-neon transform -rotate-2">FRANZ</h1>
+            <h2 class="font-typewriter text-2xl sm:text-4xl text-amberGlow mt-2 font-bold tracking-widest">// 18</h2>
+        </div>
+
+        <div class="absolute bottom-12 z-10 flex flex-col items-center gap-3">
+            <p class="font-typewriter text-sm tracking-[0.2em] text-gray-300 uppercase animate-pulse group-hover:text-white transition-colors">
+                [ Tap to enter the night ]
+            </p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="relative pb-24 hidden">
+        
+        <section class="min-h-screen flex items-center justify-center px-6 py-24 relative overflow-hidden">
+            <!-- Decorative street light beam -->
+            <div class="absolute top-0 right-1/4 w-64 h-[150%] bg-amberGlow/5 transform rotate-45 blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-3xl w-full mx-auto reveal flex flex-col items-center">
+                
+                <div class="polaroid transform rotate-2 max-w-sm mb-12">
+                    <div class="tape transform -rotate-1"></div>
+                    <img src="https://images.unsplash.com/photo-1517685633466-403d6955aeab?auto=format&fit=crop&q=80&w=800" 
+                         alt="City Lights" 
+                         onerror="this.src='https://placehold.co/800x600/111/f59e0b?text=Street+Lights'">
+                    <p class="polaroid-caption mt-4">Under the streetlights...</p>
+                </div>
+
+                <div class="text-center font-typewriter space-y-4 bg-asphalt/60 p-8 border border-gray-800 rounded-sm backdrop-blur-sm relative w-full">
+                    <i class="fa-solid fa-paperclip absolute -top-4 -left-2 text-2xl text-gray-400 transform -rotate-12"></i>
+                    
+                    <p class="text-neonBlue text-sm tracking-widest">// INVITATION</p>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white leading-relaxed">
+                        Meet me where the city glows.
+                    </h2>
+                    <p class="text-gray-400 mt-4 leading-relaxed">
+                        Join me as I step into a new chapter,<br>
+                        surrounded by stars, sounds, and the people I love.
+                    </p>
+                    
+                    <div class="my-8 w-24 h-[1px] bg-amberGlow/50 mx-auto"></div>
+                    
+                    <div class="space-y-2 text-lg">
+                        <p><span class="text-gray-500">DATE:</span> <span class="text-amberGlow font-bold">SEPT 27, 2026</span></p>
+                        <p><span class="text-gray-500">TIME:</span> <span class="text-white">6:00 PM</span></p>
+                        <p><span class="text-gray-500">LOC:</span> <span class="text-white border-b border-dashed border-gray-600 pb-1">Felicidad Mansion</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="font-marker text-4xl sm:text-5xl text-white transform -rotate-1 inline-block">Her Story</h2>
+                    <p class="font-typewriter text-neonBlue mt-2">// fragments of a starry mind</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-12">
+                    <!-- Scrapbook Item 1 -->
+                    <div class="reveal relative flex justify-center">
+                        <div class="polaroid transform -rotate-3 max-w-[280px]">
+                            <div class="tape bg-yellow-100/40 w-20"></div>
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=600" alt="Overlooking">
+                            <p class="polaroid-caption mt-2">Chasing cityscapes</p>
+                        </div>
+                        <p class="font-handwritten text-xl text-gray-300 absolute -bottom-8 -right-4 transform rotate-12 max-w-[150px]">
+                            Always looking for the highest view...
+                        </p>
+                    </div>
+
+                    <!-- Scrapbook Item 2 -->
+                    <div class="reveal relative flex justify-center mt-12 md:mt-0">
+                        <div class="polaroid transform rotate-2 max-w-[280px]">
+                            <div class="tape w-24"></div>
+                            <img src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&q=80&w=600" alt="Innocence">
+                            <p class="polaroid-caption mt-2">Wild & Free</p>
+                        </div>
+                        <p class="font-typewriter text-xs text-amberGlow absolute -top-6 -left-2 bg-asphalt p-1 border border-gray-700 transform -rotate-6">
+                            EST. 2008
+                        </p>
+                    </div>
+
+                    <!-- Scrapbook Item 3 -->
+                    <div class="reveal relative flex justify-center mt-12 lg:mt-0">
+                        <div class="polaroid transform -rotate-1 max-w-[280px]">
+                            <div class="tape bg-red-100/30"></div>
+                            <img src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?auto=format&fit=crop&q=80&w=600" alt="Stars">
+                            <p class="polaroid-caption mt-2">Stargazing</p>
+                        </div>
+                        <p class="font-handwritten text-2xl text-neonBlue absolute bottom-1/4 -left-12 transform -rotate-12">
+                            * magic *
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-20 max-w-2xl mx-auto bg-black/50 p-8 border-l-4 border-amberGlow reveal">
+                    <p class="font-typewriter text-lg leading-loose text-gray-300">
+                        She is a collector of midnight thoughts, neon signs, and blurred photographs. Finding beauty in the raw, the unfiltered, and the quiet moments overlooking a sleeping city. Eighteen years of innocence, chaos, and a heart completely full of life.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 overflow-hidden">
+            <div class="max-w-6xl mx-auto border-t border-b border-gray-800 py-16">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="font-marker text-4xl sm:text-5xl text-white">THE CREW // THE 18</h2>
+                    <p class="font-typewriter text-gray-400 mt-4 max-w-xl mx-auto">
+                        The ones who walked the streets with me, the ones who gave me light when the city went dark.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+                    <!-- 18 Streetlights (Roses) -->
+                    <div class="reveal">
+                        <h3 class="font-typewriter text-xl text-amberGlow font-bold mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-street-view"></i> 18 Streetlights
+                        </h3>
+                        <p class="font-handwritten text-xl text-gray-400 mb-6">Guiding my path (The Roses)</p>
+                        <div class="relative h-64 w-full">
+                            <!-- Stacked polaroid effect -->
+                            <div class="polaroid absolute top-0 left-4 transform -rotate-6 w-48 z-10 hover:z-50">
+                                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=400" alt="Friends">
+                                <p class="polaroid-caption text-sm mt-1">The Boys</p>
+                            </div>
+                            <div class="polaroid absolute top-4 left-12 transform rotate-3 w-48 z-20 hover:z-50">
+                                <img src="https://images.unsplash.com/photo-1543807535-eceef0bc6599?auto=format&fit=crop&q=80&w=400" alt="Friends">
+                                <p class="polaroid-caption text-sm mt-1">Family</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 18 Stars (Bills) -->
+                    <div class="reveal mt-12 md:mt-0">
+                        <h3 class="font-typewriter text-xl text-neonBlue font-bold mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-star"></i> 18 Stars
+                        </h3>
+                        <p class="font-handwritten text-xl text-gray-400 mb-6">Wishes & Blessings (The Bills)</p>
+                        <div class="relative h-64 w-full">
+                            <div class="polaroid absolute top-2 left-6 transform rotate-6 w-48 z-10 hover:z-50">
+                                <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&q=80&w=400" alt="Mentors">
+                                <p class="polaroid-caption text-sm mt-1">Mentors</p>
+                            </div>
+                            <div class="polaroid absolute top-8 left-0 transform -rotate-2 w-48 z-20 hover:z-50">
+                                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80&w=400" alt="Family">
+                                <p class="polaroid-caption text-sm mt-1">Loved ones</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 18 Polaroids (Treasures) -->
+                    <div class="reveal mt-12 md:mt-0">
+                        <h3 class="font-typewriter text-xl text-white font-bold mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-camera-retro text-gray-400"></i> 18 Polaroids
+                        </h3>
+                        <p class="font-handwritten text-xl text-gray-400 mb-6">Captured Memories (Treasures)</p>
+                        <div class="relative h-64 w-full">
+                            <div class="polaroid absolute top-0 left-2 transform -rotate-12 w-48 z-10 hover:z-50">
+                                <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&q=80&w=400" alt="Gifts">
+                                <p class="polaroid-caption text-sm mt-1">Besties</p>
+                            </div>
+                            <div class="polaroid absolute top-6 left-10 transform rotate-12 w-48 z-20 hover:z-50">
+                                <img src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&q=80&w=400" alt="Gifts">
+                                <p class="polaroid-caption text-sm mt-1">Treasures</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 flex justify-center relative">
+            <div class="max-w-xl w-full reveal relative">
+                <!-- Notebook paper container -->
+                <div class="notebook-paper p-8 pl-14 pb-12 transform rotate-1 relative z-10">
+                    <div class="tape bg-yellow-900/10 w-32 left-1/2 -top-4"></div>
+                    
+                    <p class="font-handwritten text-3xl font-bold text-gray-800 mb-6">Dear Franz,</p>
+                    
+                    <div class="font-handwritten text-2xl text-gray-700 leading-relaxed space-y-4">
+                        <p>It feels like just yesterday you were a kid fascinated by the glowing lights outside the car window.</p>
+                        <p>Now, you're the one shining. Eighteen is a wild ride. Keep your innocence, but don't be afraid to take up space in this big city.</p>
+                        <p>Keep chasing sunsets and overlooking views. The world is yours to capture.</p>
+                    </div>
+
+                    <p class="font-handwritten text-2xl font-bold text-gray-800 mt-8 text-right pr-4">
+                        Love always,<br>Mom & Dad
+                    </p>
+                </div>
+                
+                <!-- Scribble accents -->
+                <i class="fa-solid fa-heart absolute -bottom-6 -right-6 text-4xl text-red-500 transform rotate-12 z-0 opacity-50"></i>
+                <i class="fa-solid fa-star absolute -top-4 -left-8 text-3xl text-amberGlow transform -rotate-12 z-0 opacity-50"></i>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 bg-asphalt/80 border-t-2 border-dashed border-gray-800">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <h2 class="font-marker text-3xl sm:text-4xl text-white mb-2">THE DEETS</h2>
+                <p class="font-typewriter text-amberGlow mb-12">// Starry Night / Urban Chic</p>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-16 text-left">
+                    <div class="bg-midnight p-6 border border-gray-700 rounded-sm">
+                        <i class="fa-solid fa-location-dot text-2xl text-neonBlue mb-4"></i>
+                        <h4 class="font-typewriter font-bold text-lg text-white mb-2">VENUE</h4>
+                        <p class="text-gray-400 font-sans text-sm mb-4">Felicidad Mansion<br>Quezon City, Metro Manila</p>
+                        <a href="#" class="inline-block font-typewriter text-xs text-amberGlow border border-amberGlow px-3 py-1 hover:bg-amberGlow hover:text-midnight transition-colors">
+                            [ GET DIRECTIONS ]
+                        </a>
+                    </div>
+
+                    <div class="bg-midnight p-6 border border-gray-700 rounded-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fa-solid fa-shirt text-6xl"></i>
+                        </div>
+                        <i class="fa-solid fa-moon text-2xl text-amberGlow mb-4"></i>
+                        <h4 class="font-typewriter font-bold text-lg text-white mb-2">DRESS CODE</h4>
+                        <p class="font-handwritten text-2xl text-gray-300 mb-2">Urban Chic & Starry Elements</p>
+                        <p class="text-gray-500 font-sans text-sm">Think leather jackets over slip dresses, boots, subtle glitters, or sleek streetwear. Dress to impress the night.</p>
+                    </div>
+                </div>
+
+                <!-- Countdown -->
+                <div class="border border-gray-800 p-8 relative inline-block w-full max-w-2xl bg-midnight/50 backdrop-blur-sm">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-midnight px-4 font-typewriter text-xs text-gray-400 tracking-widest">SYSTEM_TIMER_OFFLINE_UNTIL</span>
+                    
+                    <div class="grid grid-cols-4 gap-2 sm:gap-4 font-typewriter text-white">
+                        <div class="text-center">
+                            <span id="c-days" class="text-3xl sm:text-5xl font-bold glow-text-neon block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-500 mt-2 block">DAYS</span>
+                        </div>
+                        <div class="text-center">
+                            <span id="c-hours" class="text-3xl sm:text-5xl font-bold glow-text-neon block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-500 mt-2 block">HRS</span>
+                        </div>
+                        <div class="text-center">
+                            <span id="c-mins" class="text-3xl sm:text-5xl font-bold glow-text-neon block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-500 mt-2 block">MINS</span>
+                        </div>
+                        <div class="text-center">
+                            <span id="c-secs" class="text-3xl sm:text-5xl font-bold text-amberGlow glow-text-amber block">00</span>
+                            <span class="text-[10px] sm:text-xs text-gray-500 mt-2 block">SECS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 flex justify-center">
+            <div class="w-full max-w-3xl reveal">
+                <div class="text-center mb-10">
+                    <h2 class="font-marker text-4xl text-white">GET ON THE LIST</h2>
+                    <p class="font-typewriter text-gray-400 mt-2">// RSVP to secure your spot</p>
+                </div>
+
+                <div class="gig-ticket">
+                    <!-- Main Form Area -->
+                    <div class="p-6 sm:p-8 flex-grow">
+                        <h3 class="font-typewriter text-lg text-neonBlue font-bold border-b border-gray-700 pb-2 mb-6 uppercase">
+                            VIP ACCESS PASS
+                        </h3>
+                        <form id="rsvpForm" class="space-y-4 font-typewriter">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">GUEST NAME_</label>
+                                <input type="text" required class="w-full bg-asphalt border border-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:border-neonBlue transition-colors" placeholder="Enter full name">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">ATTENDING?_</label>
+                                    <select class="w-full bg-asphalt border border-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:border-neonBlue">
+                                        <option>YES, LET'S RIDE</option>
+                                        <option>NO, CAN'T MAKE IT</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">PLUS ONE?_</label>
+                                    <select class="w-full bg-asphalt border border-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:border-neonBlue">
+                                        <option>0</option>
+                                        <option>1</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">MESSAGE_ (OPTIONAL)</label>
+                                <input type="text" class="w-full bg-asphalt border border-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:border-neonBlue" placeholder="Leave a note...">
+                            </div>
+                            <button type="submit" class="w-full mt-4 bg-neonBlue hover:bg-white text-midnight font-bold py-3 transition-colors text-sm tracking-widest">
+                                CONFIRM RSVP
+                            </button>
+                        </form>
+                        <div id="rsvpSuccess" class="hidden mt-6 text-center font-typewriter text-amberGlow border border-amberGlow p-4">
+                            > ACCESS GRANTED. SEE YOU UNDER THE LIGHTS.
+                        </div>
+                    </div>
+
+                    <!-- Ticket Stub -->
+                    <div class="ticket-stub p-6 sm:p-8 flex flex-col justify-center items-center sm:w-48 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAJElEQVQIW2NkQAP/gYARSYjB///gXEQRIIkYIEkwK0gWbACQOQA05xEFu2jPzAAAAABJRU5ErkJggg==')]">
+                        <div class="bg-midnight p-4 w-full text-center border border-gray-700 transform sm:rotate-90 sm:w-40 sm:h-32 flex flex-col justify-center">
+                            <span class="block font-typewriter text-xs text-gray-500 mb-1">ADMITS</span>
+                            <span class="block font-marker text-4xl text-white">ONE</span>
+                            <span class="block font-typewriter text-[10px] text-gray-600 mt-2">NO. 18-2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-12 border-t border-gray-800 text-center relative overflow-hidden">
+            <h2 class="font-marker text-5xl text-gray-800 opacity-30 select-none transform rotate-2">FRANZ IS 18</h2>
+            <p class="font-typewriter text-xs text-gray-600 mt-4 tracking-widest">THE NIGHT IS YOUNG // SEPT 27, 2026</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Intro Screen Interaction
+        const introScreen = document.getElementById('intro-screen');
+        const mainContent = document.getElementById('main-content');
+        let audioCtx;
+        let isPlaying = false;
+        let oscillator, gainNode;
+
+        introScreen.addEventListener('click', () => {
+            introScreen.classList.add('fade-out');
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                initAudio();
+                window.scrollTo(0, 0);
+            }, 1000); // Wait for fade out
+        });
+
+        // Ambient Audio Logic (Lo-fi electric piano vibe simulation)
+        function initAudio() {
+            if (audioCtx) return;
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+
+            // Simple ambient drone to simulate night city vibe
+            gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+
+            // Chords for night time feel: Fmaj7 / Am
+            const freqs = [174.61, 220.00, 261.63, 329.63]; 
+            
+            freqs.forEach(f => {
+                let osc = audioCtx.createOscillator();
+                osc.type = 'triangle'; // Softer tone
+                osc.frequency.setValueAtTime(f, audioCtx.currentTime);
+                
+                let filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(400, audioCtx.currentTime); // Muffled lo-fi sound
+
+                osc.connect(filter);
+                filter.connect(gainNode);
+                osc.start();
+            });
+
+            gainNode.connect(audioCtx.destination);
+            playAudio();
+        }
+
+        function playAudio() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            gainNode.gain.setTargetAtTime(0.1, audioCtx.currentTime, 1);
+            isPlaying = true;
+            document.getElementById('audio-status').textContent = 'PLAYING';
+            document.getElementById('audio-icon').classList.add('text-amberGlow');
+        }
+
+        function pauseAudio() {
+            gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+            isPlaying = false;
+            document.getElementById('audio-status').textContent = 'PAUSED';
+            document.getElementById('audio-icon').classList.remove('text-amberGlow');
+        }
+
+        document.getElementById('audio-toggle').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!audioCtx) initAudio();
+            else if (isPlaying) pauseAudio();
+            else playAudio();
+        });
+
+        // Intersection Observer for Reveal Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Floating Stars/Dust Canvas Effect
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedY = Math.random() * 0.5 - 0.25; // Drift vertically
+                this.speedX = Math.random() * 0.5 - 0.25; // Drift horizontally
+                this.opacity = Math.random();
+                this.color = Math.random() > 0.5 ? '#f59e0b' : '#818cf8'; // Amber or Blue
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity * 0.5;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for(let i=0; i<70; i++) particles.push(new Particle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // Countdown Timer Logic
+        const targetDate = new Date('September 27, 2026 18:00:00 GMT+0800').getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) return;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('c-days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('c-hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('c-mins').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('c-secs').innerText = seconds.toString().padStart(2, '0');
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // RSVP Form Submition mock
+        document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerHTML = 'PROCESSING...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                e.target.style.display = 'none';
+                document.getElementById('rsvpSuccess').classList.remove('hidden');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
