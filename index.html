@@ -39,7 +39,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Lock scroll on the homepage until explore is clicked */
         body.no-scroll {
             overflow: hidden;
             height: 100vh;
@@ -62,18 +61,17 @@
             line-height: 1;
         }
 
-        /* Global 20% Opacity Glass Card */
         .glass-card {
             position: relative;
             z-index: 2;
-            background: rgba(255, 255, 255, 0.2); /* Exactly 20% Opacity */
+            background: rgba(255, 255, 255, 0.2); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 60px 50px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
         .action-btn {
@@ -105,7 +103,6 @@
             justify-content: center;
         }
 
-        /* --- HOME SECTION --- */
         #home {
             height: 100vh;
             width: 100%;
@@ -179,12 +176,12 @@
 
         .explore-btn {
             margin-top: 2rem;
-            padding: 10px 24px;
+            padding: 8px 20px;
             border: 1px solid var(--color-dark-ink);
             border-radius: 30px;
             background: transparent;
             font-family: var(--font-sans);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
@@ -197,7 +194,6 @@
             color: var(--color-white);
         }
 
-        /* --- ABOUT SECTION --- */
         #about {
             min-height: 100vh;
             padding: 100px 20px;
@@ -232,7 +228,6 @@
             margin-top: 2rem;
         }
 
-        /* --- DETAILS SECTION --- */
         #details {
             min-height: 100vh;
             width: 100%;
@@ -251,7 +246,7 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 3rem;
+            gap: 4rem;
             width: 100%;
             max-width: 1200px;
             z-index: 2;
@@ -273,23 +268,31 @@
             height: auto;
             max-height: 75vh; 
             object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            border: 4px solid rgba(255,255,255,0.4);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .details-content-wrapper {
+            padding-top: 30px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .countdown-display {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--color-deep-lavender);
-            margin-bottom: 2rem;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 8px 20px;
+            color: var(--color-dark-ink);
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            padding: 6px 16px;
             border-radius: 30px;
             display: inline-block;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.6);
         }
 
         .details-grid {
@@ -298,7 +301,7 @@
             gap: 2rem;
             width: 100%;
             max-width: 400px;
-            margin: 0 auto 3rem auto;
+            margin: 0 auto;
         }
 
         .detail-item {
@@ -308,19 +311,19 @@
         }
 
         .detail-item svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--color-muted-lilac);
+            width: 28px;
+            height: 28px;
+            stroke: var(--color-dark-ink);
             stroke-width: 1.2;
             fill: none;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .detail-item h4 {
             font-size: 0.9rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             color: var(--color-dark-ink);
         }
 
@@ -329,9 +332,9 @@
             font-style: italic;
             color: var(--color-dark-ink);
             margin-bottom: 0;
+            opacity: 0.9;
         }
 
-        /* --- TRADITIONS SECTION --- */
         #traditions {
             background-image: url('cover3.jpg');
             background-size: cover;
@@ -371,21 +374,21 @@
         .tradition-icon {
             width: 80px;
             height: 80px;
-            border: 1px solid rgba(180, 154, 207, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 15px;
-            color: var(--color-deep-lavender);
+            color: var(--color-dark-ink);
             transition: all 0.4s ease;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
         }
         
         .tradition-item:hover .tradition-icon {
             transform: scale(1.05);
-            background-color: rgba(255, 255, 255, 0.5);
-            border-color: var(--color-deep-lavender);
+            background-color: rgba(255, 255, 255, 0.4);
+            border-color: var(--color-white);
         }
 
         .tradition-icon svg {
@@ -405,6 +408,21 @@
             text-transform: uppercase;
             color: var(--color-dark-ink);
             text-align: center;
+        }
+        
+        .glowing-hint {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--color-dark-ink);
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
 
         /* --- MODAL --- */
@@ -451,7 +469,6 @@
             transform: scale(1.1);
         }
 
-        /* PURE WHITE TEXT ENFORCEMENT FOR MODAL */
         .modal-card h3,
         .modal-card p,
         .modal-title,
@@ -459,7 +476,7 @@
         .modal-description,
         .highlight-role {
             color: #FFFFFF !important;
-            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.6); /* Drop shadow to ensure readability */
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); 
         }
 
         .modal-title {
@@ -536,7 +553,10 @@
             border-top: 1px solid rgba(255,255,255,0.6);
         }
 
-        /* --- GALLERY SECTION --- */
+        #locked-sections {
+            display: none; /* Unlocked via JS */
+        }
+
         #gallery {
             background-image: url('cover2.jpg');
             background-size: cover;
@@ -578,7 +598,6 @@
             object-fit: cover;
             opacity: 0;
             transform: scale(1);
-            /* Ken burns / smooth crossfade */
             transition: opacity 2.5s ease-in-out, transform 12s linear;
         }
 
@@ -587,7 +606,6 @@
             transform: scale(1.1);
         }
 
-        /* --- RSVP --- */
         #rsvp {
             background-image: url('cover3.jpg');
             background-size: cover;
@@ -663,7 +681,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* --- CLOSING --- */
         #closing {
             background-color: var(--color-dark-ink);
             color: var(--color-white);
@@ -680,7 +697,6 @@
             text-transform: uppercase;
         }
 
-        /* --- PARTICLES & MISC --- */
         .interactive-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -707,13 +723,12 @@
             100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
         }
 
-        /* Floating Music Button */
         .music-toggle-btn {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
@@ -734,12 +749,11 @@
         }
 
         .music-toggle-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .details-layout {
                 flex-direction: column;
@@ -755,27 +769,19 @@
             .hero-script { font-size: 4.5rem; }
             .glass-card, .modal-card { padding: 40px 20px; }
             .script-text { font-size: 3rem; }
-            .music-toggle-btn { bottom: 15px; right: 15px; width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body class="no-scroll">
 
-    <!-- Background Music -->
-    <audio id="bg-music" loop>
-        <source src="song.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
 
-    <!-- Floating Music Controls -->
     <button class="music-toggle-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle Music">
-        <!-- Play Icon by default -->
         <svg id="musicIcon" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z"/>
         </svg>
     </button>
 
-    <!-- Subtle interactive background -->
     <div class="interactive-container" id="interactive-container"></div>
 
     <section id="home">
@@ -788,10 +794,9 @@
             
             <div class="hero-details">
                 <span>September 22, 2027 &nbsp;&bull;&nbsp; 6:00 PM</span>
-                <span>The Grand Magnolia Manor</span>
+                <span>Felicidad Mansion</span>
             </div>
 
-            <!-- Unlocks scroll and plays music -->
             <button class="explore-btn" onclick="unlockScrollAndExplore()">
                 Explore
             </button>
@@ -809,19 +814,15 @@
 
     <section id="details">
         <div class="details-layout">
-            <!-- Left Side: Image -->
             <div class="details-left">
                 <img src="p2.jpeg" alt="Franz Portrait" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Portrait'">
             </div>
             
-            <!-- Right Side: 20% Glass Card Panel -->
             <div class="details-right">
-                <div class="glass-card" style="padding: 50px 40px; margin: 0 auto; width: 100%;">
+                <div class="glass-card details-content-wrapper" style="margin: 0 auto; width: 100%;">
                     <h2 class="script-text" style="font-size: 3rem; margin-bottom: 0.5rem;">Join Me On This Special Day</h2>
                     
-                    <div class="countdown-display" id="countdown">Calculating days...</div>
-                    
-                    <div class="details-grid">
+                    <div class="details-grid" style="margin-top: 15px;">
                         <div class="detail-item">
                             <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                             <h4>September 22, 2027</h4>
@@ -834,12 +835,16 @@
                         </div>
                         <div class="detail-item">
                             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            <h4>The Grand Magnolia Manor</h4>
-                            <p>Manila, Philippines</p>
+                            <h4>Felicidad Mansion</h4>
+                            <p>Quezon City</p>
                         </div>
                     </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="countdown-display" id="countdown">Calculating days...</div>
+                    </div>
 
-                    <a href="#" class="action-btn">See Directions</a>
+                    <a href="https://maps.app.goo.gl/vXpSb" target="_blank" class="action-btn">See Directions</a>
                 </div>
             </div>
         </div>
@@ -850,42 +855,31 @@
             <h2 class="script-text section-title">The 18</h2>
             
             <div class="traditions-grid">
-                <!-- 18 Roses -->
                 <div class="tradition-item">
                     <div class="tradition-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 22V12M12 12C12 12 10 9 10 7C10 5 11 4 12 4C13 4 14 5 14 7C14 9 12 12 12 12ZM12 12C12 12 15 13 17 11C19 9 20 7 19 6C18 5 16 5 14 7C12 9 12 12 12 12ZM12 12C12 12 9 13 7 11C5 9 4 7 5 6C6 5 8 5 10 7C12 9 12 12 12 12ZM12 15C10 16 8 15 8 15M12 18C14 19 16 18 16 18"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 10 9 10 7C10 5 11 4 12 4C13 4 14 5 14 7C14 9 12 12 12 12ZM12 12C12 12 15 13 17 11C19 9 20 7 19 6C18 5 16 5 14 7C12 9 12 12 12 12ZM12 12C12 12 9 13 7 11C5 9 4 7 5 6C6 5 8 5 10 7C12 9 12 12 12 12ZM12 15C10 16 8 15 8 15M12 18C14 19 16 18 16 18"/></svg>
                     </div>
                     <span>18 Roses</span>
                 </div>
-                <!-- 18 Candles -->
                 <div class="tradition-item">
                     <div class="tradition-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M9 21H15M10 21V10C10 8.89543 10.8954 8 12 8V8C13.1046 8 14 8.89543 14 10V21M12 8V5M12 5C11 5 10 4 11 2C12 4 13 5 12 5Z"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M9 21H15M10 21V10C10 8.89543 10.8954 8 12 8V8C13.1046 8 14 8.89543 14 10V21M12 8V5M12 5C11 5 10 4 11 2C12 4 13 5 12 5Z"/></svg>
                     </div>
                     <span>18 Candles</span>
                 </div>
-                <!-- 18 Blue Bills -->
                 <div class="tradition-item">
                     <div class="tradition-icon">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="6" width="18" height="12" rx="1"/>
-                            <path d="M3 6L12 12L21 6"/>
-                            <path d="M12 12L12 18"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1"/><path d="M3 6L12 12L21 6"/><path d="M12 12L12 18"/></svg>
                     </div>
                     <span>18 Blue Bills</span>
                 </div>
             </div>
 
             <button class="action-btn" onclick="openModal()">A Note, Just for You</button>
+            <div id="glowing-hint" class="glowing-hint">Click to reveal your note to continue ↓</div>
         </div>
     </section>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="traditionModal">
         <div class="modal-card glass-card">
             <button class="modal-close" onclick="closeModal()">×</button>
@@ -906,54 +900,52 @@
         </div>
     </div>
 
-    <!-- --- GALLERY --- -->
-    <section id="gallery">
-        <div class="glass-card">
-            <h2 class="script-text section-title">Moments That Matter</h2>
-            
-            <div class="slideshow-container">
-                <img src="p11.jpeg" class="slide active" alt="Memory 1" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+1'">
-                <img src="p12.jpeg" class="slide" alt="Memory 2" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+2'">
-                <img src="p13.jpeg" class="slide" alt="Memory 3" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+3'">
-                <img src="p14.jpeg" class="slide" alt="Memory 4" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+4'">
-                <img src="p15.jpeg" class="slide" alt="Memory 5" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+5'">
-                <img src="p16.jpeg" class="slide" alt="Memory 6" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+6'">
-                <img src="p17.jpeg" class="slide" alt="Memory 7" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+7'">
-            </div>
-        </div>
-    </section>
-
-    <section id="rsvp">
-        <div class="glass-card rsvp-wrapper">
-            <h2 class="script-text" style="font-size: 3.5rem;">Will you be there?</h2>
-            <p>Please let us know if you can join me to celebrate this special day.</p>
-            
-            <!-- QR Code -->
-            <img src="sampleQR.png" alt="Scan to RSVP" class="qr-code" onerror="this.src='https://placehold.co/200x200/FFFFFF/30243C?text=QR+Code'">
-            
-            <a href="#" class="action-btn">RSVP Online</a>
-            
-            <!-- Dress Code -->
-            <div class="dress-code-section">
-                <h3 class="dress-code-title">Dress Code</h3>
-                <p class="dress-code-text">See you wearing White or Purple formal/semi-formal attire.</p>
-                <div class="color-swatches">
-                    <div class="swatch" style="background-color: #FFFFFF;" title="White"></div>
-                    <div class="swatch" style="background-color: #E5D9EF;" title="Soft Purple"></div>
-                    <div class="swatch" style="background-color: #755394;" title="Deep Purple"></div>
+    <div id="locked-sections">
+        <section id="gallery">
+            <div class="glass-card">
+                <h2 class="script-text section-title">Moments That Matter</h2>
+                
+                <div class="slideshow-container">
+                    <img src="p11.jpeg" class="slide active" alt="Memory 1" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+1'">
+                    <img src="p12.jpeg" class="slide" alt="Memory 2" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+2'">
+                    <img src="p13.jpeg" class="slide" alt="Memory 3" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+3'">
+                    <img src="p14.jpeg" class="slide" alt="Memory 4" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+4'">
+                    <img src="p15.jpeg" class="slide" alt="Memory 5" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+5'">
+                    <img src="p16.jpeg" class="slide" alt="Memory 6" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+6'">
+                    <img src="p17.jpeg" class="slide" alt="Memory 7" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+7'">
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="closing">
-        <p class="closing-date">FRANZ &bull; 09.22.2027</p> 
-    </section>
+        <section id="rsvp">
+            <div class="glass-card rsvp-wrapper">
+                <h2 class="script-text" style="font-size: 3.5rem;">Will you be there?</h2>
+                <p>Please let us know if you can join me to celebrate this special day.</p>
+                
+                <img src="sampleQR.png" alt="Scan to RSVP" class="qr-code" onerror="this.src='https://placehold.co/200x200/FFFFFF/30243C?text=QR+Code'">
+                
+                <a href="#" class="action-btn">RSVP Now</a>
+                
+                <div class="dress-code-section">
+                    <h3 class="dress-code-title">Dress Code</h3>
+                    <p class="dress-code-text">See you wearing White or Purple formal/semi-formal attire.</p>
+                    <div class="color-swatches">
+                        <div class="swatch" style="background-color: #FFFFFF;" title="White"></div>
+                        <div class="swatch" style="background-color: #E5D9EF;" title="Soft Purple"></div>
+                        <div class="swatch" style="background-color: #755394;" title="Deep Purple"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="closing">
+            <p class="closing-date">FRANZ &bull; 09.22.2027</p> 
+        </section>
+    </div>
 
     <script>
-        
         // --- Music Controls ---
-        const audio = document.getElementById('bg-music');
+        const audio = document.getElementById('bgMusic');
         const musicIcon = document.getElementById('musicIcon');
         let isMusicPlaying = false;
 
@@ -962,7 +954,7 @@
                 isMusicPlaying = true;
                 updateMusicIcon();
             }).catch(e => {
-                console.log("Autoplay blocked by browser. User interaction required.");
+                console.log("Audio playback required interaction:", e);
             });
         }
 
@@ -978,23 +970,20 @@
 
         function updateMusicIcon() {
             if (isMusicPlaying) {
-                // Pause Icon
                 musicIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
             } else {
-                // Play Icon
                 musicIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
             }
         }
 
         // --- Interaction Logic ---
-        // Unlocks scrolling, plays music, and smoothly moves to the About section
         function unlockScrollAndExplore() {
             document.body.classList.remove('no-scroll');
+            playAudio(); // Autoplays immediately via interaction
             document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-            playAudio(); // Start music on primary interaction
         }
 
-        // Live Countdown Logic (Target: Sept 22, 2027)
+        // --- Countdown Logic ---
         function updateCountdown() {
             const eventDate = new Date("September 22, 2027 18:00:00").getTime();
             const now = new Date().getTime();
@@ -1013,22 +1002,29 @@
                 countdownEl.innerText = "The beautiful day has passed";
             }
         }
-        
         updateCountdown();
         setInterval(updateCountdown, 1000 * 60 * 60);
 
-        // --- Modal Logic ---
+        // --- Modal Logic & Unlock ---
         const modalOverlay = document.getElementById('traditionModal');
         const formSection = document.getElementById('modalFormSection');
         const resultSection = document.getElementById('modalResultSection');
         const guestInput = document.getElementById('guestName');
         
-        // Exact Tradition Mappings
         const partOf18 = {
             "drew asuncion": "18 Roses",
             "andrea asuncion": "18 Blue Bills",
             "mavis godani": "18 Candles"
         };
+
+        function unlockRemainingSections() {
+            const lockedDiv = document.getElementById('locked-sections');
+            const hint = document.getElementById('glowing-hint');
+            if(lockedDiv.style.display !== 'block') {
+                lockedDiv.style.display = 'block';
+                if(hint) hint.style.display = 'none';
+            }
+        }
 
         function openModal() {
             modalOverlay.classList.add('active');
@@ -1063,6 +1059,9 @@
             
             formSection.style.display = 'none';
             resultSection.style.display = 'block';
+            
+            // Unlock page functionality after interacting with note
+            unlockRemainingSections();
         }
 
         // --- Nostalgic Gallery Slideshow Logic ---
@@ -1071,19 +1070,13 @@
 
         function nextSlide() {
             if(slides.length === 0) return;
-            // Remove active class from current slide
             slides[currentSlide].classList.remove('active');
-            // Increment index
             currentSlide = (currentSlide + 1) % slides.length;
-            // Add active class to next slide
             slides[currentSlide].classList.add('active');
         }
-
-        // Change slide every 4.5 seconds for slow, nostalgic feel
         setInterval(nextSlide, 4500);
 
         // --- Interactive background ---
-        // Very slow, subtle rising circles
         const particleContainer = document.getElementById('interactive-container');
         const particleCount = 15; 
         
