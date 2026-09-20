@@ -35,6 +35,11 @@
             overflow-x: hidden;
         }
 
+        /* Class to lock scroll on the homepage */
+        body.no-scroll {
+            overflow: hidden;
+        }
+
         a {
             text-decoration: none;
             color: inherit;
@@ -71,8 +76,8 @@
         #home {
             height: 100vh;
             padding: 0 20px;
-            background-image: url('home.jpeg'); /* User specified background */
-            background-size: cover; /* Ensures no stretching */
+            background-image: url('home.jpeg'); 
+            background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
@@ -82,7 +87,7 @@
             position: relative;
         }
 
-        /* Soft overlay to ensure text readability over the image */
+        /* Soft overlay to ensure text readability */
         #home::before {
             content: '';
             position: absolute;
@@ -137,17 +142,16 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
-            /* Removed card panel for minimalist vibe */
         }
 
         .explore-btn {
             margin-top: 2rem;
-            padding: 10px 24px; /* Smaller, more delicate */
+            padding: 10px 24px;
             border: 1px solid var(--color-dark-ink);
             border-radius: 30px;
             background: transparent;
             font-family: var(--font-sans);
-            font-size: 0.75rem; /* Smaller but readable */
+            font-size: 0.75rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
@@ -163,7 +167,7 @@
         /* --- ABOUT SECTION --- */
         #about {
             min-height: 100vh;
-            background-image: url('cover.jpg'); /* User specified */
+            background-image: url('cover.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -173,9 +177,9 @@
         .about-glass-card {
             position: relative;
             z-index: 2;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 60px 50px;
             border-radius: 12px;
             max-width: 700px;
             text-align: center;
@@ -185,11 +189,13 @@
 
         .about-glass-card .script-text {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .about-glass-card p {
-            font-size: 1rem;
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            line-height: 1.8;
             margin-bottom: 1.5rem;
             color: var(--color-dark-ink);
         }
@@ -380,7 +386,7 @@
             text-transform: uppercase;
         }
 
-        /* --- INTERACTIVE RISING ELEMENTS (Very Subtle & Slow) --- */
+        /* --- INTERACTIVE RISING ELEMENTS --- */
         .interactive-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -395,9 +401,9 @@
             width: 15px;
             height: 15px;
             background-color: var(--color-muted-lilac);
-            opacity: 0.15; /* Very subtle */
-            border-radius: 50%; /* Simple circle instead of complex shape to avoid distraction */
-            animation: floatUp 35s linear infinite; /* Very slow */
+            opacity: 0.15; 
+            border-radius: 50%;
+            animation: floatUp 35s linear infinite; 
         }
 
         @keyframes floatUp {
@@ -416,10 +422,9 @@
             .about-glass-card { padding: 40px 20px; }
         }
     </style>
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="no-scroll">
 
     <!-- Subtle Rising Elements Container -->
     <div class="interactive-container" id="interactive-container"></div>
@@ -438,7 +443,8 @@
                 <span>The Grand Magnolia Manor</span>
             </div>
 
-            <button class="explore-btn" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+            <!-- Unlocks scrolling and navigates down -->
+            <button class="explore-btn" onclick="unlockScrollAndExplore()">
                 Explore
             </button>
         </div>
@@ -448,9 +454,9 @@
     <section id="about">
         <div class="about-glass-card">
             <div class="script-text">Hello, I'm Franz</div>
-            <p>I'm a daughter, a sister, a friend, and a dreamer.</p>
-            <p>I love the simple things — good music, late night talks, cozy days, and the people who make life feel more magical.</p>
-            <p>This 18th is not just a celebration of growing up, but a reminder of how far I've come and how much I still have to look forward to.</p>
+            <p>I've always believed that the best parts of life are found in the details—the quiet mornings with a good book, spontaneous trips, and the perfect playlist that scores it all.</p>
+            <p>As I step into this new chapter, I am bringing my love for [insert hobby/passion, e.g., capturing raw moments on film] along with a deep excitement for what’s next. I'm learning, evolving, and chasing dreams that are bigger than before.</p>
+            <p>Thank you for being part of the beautiful chaos that got me here. This milestone is as much yours as it is mine.</p>
             <div class="signature">A Little More Me</div>
         </div>
     </section>
@@ -508,7 +514,6 @@
     <section id="gallery">
         <h2 class="script-text section-title">Moments That Matter</h2>
         <div class="gallery-grid">
-            <!-- Placeholders -->
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+1" alt="Gallery 1"></div>
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+2" alt="Gallery 2"></div>
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+3" alt="Gallery 3"></div>
@@ -533,18 +538,21 @@
     </section>
 
     <script>
+        // Unlocks scrolling and smoothly moves to the About section
+        function unlockScrollAndExplore() {
+            document.body.classList.remove('no-scroll');
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        }
+
         // Subtle Rising Elements Generation
         const container = document.getElementById('interactive-container');
-        const particleCount = 10; // Keep it low to prevent distraction
+        const particleCount = 10; 
         
         function createParticle() {
             const el = document.createElement('div');
             el.classList.add('rising-element');
-            // Random horizontal position
             el.style.left = Math.random() * 100 + 'vw';
-            // Random animation delay so they don't all rise at once
             el.style.animationDelay = (Math.random() * 20) + 's';
-            // Random animation duration for variety
             el.style.animationDuration = (30 + Math.random() * 20) + 's';
             
             container.appendChild(el);
