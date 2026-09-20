@@ -537,7 +537,15 @@
             font-style: italic;
             font-size: 1.2rem;
             line-height: 1.8;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: var(--color-dark-ink) !important;
+            text-shadow: none !important;
+        }
+
+        .highlight-wrapper {
+            border-top: 1px solid rgba(48, 36, 60, 0.3);
+            padding-top: 20px;
+            margin-top: 10px;
         }
 
         .modal-result .highlight-role {
@@ -548,9 +556,12 @@
             letter-spacing: 0.1em;
             font-size: 0.9rem;
             display: inline-block;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.6);
+            background-color: var(--color-dark-ink);
+            color: var(--color-white) !important;
+            padding: 12px 28px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-shadow: none !important;
         }
 
         #locked-sections {
@@ -1047,7 +1058,9 @@
                 resultSection.innerHTML = `
                     <h3>A little something for you, Franz's way. ♡</h3>
                     <p>Thank you for being part of this special chapter in my life. I'm looking forward to celebrating this moment with you.</p>
-                    <div class="highlight-role">You're part of my ${role}</div>
+                    <div class="highlight-wrapper">
+                        <div class="highlight-role">You're part of my ${role}</div>
+                    </div>
                 `;
             } else {
                 resultSection.innerHTML = `
