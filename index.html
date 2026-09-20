@@ -165,19 +165,34 @@
 </head>
 <body class="font-sans antialiased selection:bg-lavender-200 selection:text-white relative">
 
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-5 px-6 md:px-12 bg-white/80 backdrop-blur-md border-b border-lavender-100/50">
-            <div class="hidden md:block text-lavender-300 text-xl">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-5 px-6 md:px-12 bg-transparent border-transparent">
+        <div class="max-w-7xl mx-auto flex justify-between items-center w-full">
+            
+            <!-- Logo -->
+            <a href="#home" class="font-script text-3xl md:text-4xl text-lavender-300 hover:text-lavender-200 transition-colors drop-shadow-md">Franz's 18th</a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center space-x-8 font-sans text-[10px] tracking-[0.2em] uppercase font-semibold">
+                <a href="#home" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">Home</a>
+                <a href="#about" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">About</a>
+                <a href="#details" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">Details</a>
+                <a href="#the-18" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">The 18</a>
+                <a href="#gallery" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">Gallery</a>
+                <a href="#rsvp" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">RSVP</a>
+            </div>
+
+            <div class="hidden md:block text-lavender-300 text-xl drop-shadow-md">
                 <i class="ph ph-butterfly"></i>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="lg:hidden text-2xl text-lavender-300 focus:outline-none" aria-label="Toggle Menu">
+            <button id="mobile-menu-btn" class="lg:hidden text-2xl text-lavender-300 focus:outline-none drop-shadow-md" aria-label="Toggle Menu">
                 <i class="ph ph-list"></i>
             </button>
         </div>
 
         <!-- Mobile Nav -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white shadow-soft flex flex-col items-center py-8 space-y-6 font-sans text-xs tracking-[0.2em] uppercase border-t border-lavender-100">
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-soft flex flex-col items-center py-8 space-y-6 font-sans text-xs tracking-[0.2em] uppercase border-t border-lavender-100">
             <a href="#home" class="mobile-link hover:text-lavender-300 transition-colors">Home</a>
             <a href="#about" class="mobile-link hover:text-lavender-300 transition-colors">About</a>
             <a href="#details" class="mobile-link hover:text-lavender-300 transition-colors">Details</a>
@@ -187,42 +202,43 @@
         </div>
     </nav>
 
-    <section id="home" class="relative h-screen w-full flex flex-col md:flex-row items-center justify-start overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('home.jpeg');">
+    <section id="home" class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('home.jpeg');">
         
-        <!-- Gradient Overlay to ensure text readability -->
-        <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-white/95 via-white/60 to-transparent z-0"></div>
+        <!-- Very subtle Overlay to ensure text readability while keeping the image completely visible to the edges -->
+        <div class="absolute inset-0 bg-white/20 z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-white/70 z-0 pointer-events-none"></div>
         
-        <!-- Left Content (Now layered over the background image) -->
-        <div class="relative w-full h-full md:w-1/2 flex flex-col justify-center items-center text-center px-6 md:px-12 lg:px-24 z-10 reveal-up pt-24 md:pt-0">
-            <p class="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-dark-text/60 mb-6">You're Invited To</p>
+        <!-- Centered Content -->
+        <div class="relative w-full max-w-4xl flex flex-col justify-center items-center text-center px-6 md:px-12 z-10 reveal-up pt-12">
+            <p class="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-dark-text/90 mb-6 font-bold drop-shadow-md">You're Invited To</p>
             
-            <h2 class="font-serif text-2xl md:text-3xl tracking-[0.2em] uppercase text-dark-text mb-[-15px] z-10">Franz's</h2>
-            <h1 class="font-script text-7xl md:text-9xl lg:text-[140px] text-lavender-300 mb-4 drop-shadow-sm leading-none">18th</h1>
-            <h2 class="font-script text-7xl md:text-9xl lg:text-[140px] text-lavender-300 mb-4 drop-shadow-sm leading-none">18th</h2>
-            <h2 class="font-script text-5xl md:text-7xl lg:text-[90px] text-dark-text mb-8 -mt-6 md:-mt-10 leading-none">Birthday</h2>
+            <h2 class="font-serif text-2xl md:text-3xl tracking-[0.2em] uppercase text-dark-text mb-[-15px] z-10 drop-shadow-md">Franz's</h2>
+            <h1 class="font-script text-7xl md:text-9xl lg:text-[140px] text-lavender-300 mb-4 drop-shadow-lg leading-none">18th</h1>
+            <h2 class="font-script text-5xl md:text-7xl lg:text-[90px] text-dark-text mb-8 -mt-6 md:-mt-10 leading-none drop-shadow-md">Birthday</h2>
             
-            <p class="font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase text-dark-text/80 mb-6">A Moment of Becoming</p>
+            <p class="font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase text-dark-text/90 mb-6 font-bold drop-shadow-md">A Moment of Becoming</p>
             
-            <div class="flex items-center gap-4 text-lavender-200 mb-6">
-                <span class="w-12 h-px bg-lavender-200"></span>
-                <i class="ph ph-sparkle"></i>
-                <span class="w-12 h-px bg-lavender-200"></span>
+            <div class="flex items-center gap-4 text-lavender-300 mb-6 drop-shadow-sm">
+                <span class="w-12 h-px bg-lavender-300"></span>
+                <i class="ph-fill ph-sparkle"></i>
+                <span class="w-12 h-px bg-lavender-300"></span>
             </div>
             
-            <p class="font-sans text-xs tracking-[0.2em] text-dark-text/80 mb-10">
+            <!-- Information Card -->
+            <p class="font-sans text-xs tracking-[0.2em] text-dark-text/90 mb-10 font-bold drop-shadow-sm bg-white/50 px-8 py-4 rounded-full backdrop-blur-md shadow-sm border border-white/60">
                 SEPTEMBER 27, 2026 &nbsp;&middot;&nbsp; 6:00 PM<br>
-                <span class="mt-2 block">THE GRAND MAGNOLIA MANOR</span>
+                <span class="mt-1 block">THE GRAND MAGNOLIA MANOR</span>
             </p>
             
-            <a href="#story" class="inline-block border border-dark-text text-dark-text hover:bg-dark-text hover:text-white px-10 py-3 rounded-full transition-all duration-300 font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase bg-white/30 backdrop-blur-sm">
+            <a href="#story" class="inline-block border border-dark-text text-dark-text hover:bg-dark-text hover:text-white px-10 py-3 rounded-full transition-all duration-300 font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase bg-white/60 backdrop-blur-md shadow-sm">
                 Explore <i class="ph ph-caret-right inline-block ml-1 align-middle"></i>
             </a>
         </div>
 
-        <!-- Handwritten overlay text shifted to float gracefully on the right side -->
+        <!-- Handwritten overlay text -->
         <div class="absolute bottom-16 right-8 md:bottom-24 md:right-16 text-right rotate-[-5deg] z-10 reveal-fade hidden md:block">
-            <p class="font-script text-4xl md:text-5xl text-white drop-shadow-md">A Little</p>
-            <p class="font-script text-4xl md:text-5xl text-white drop-shadow-md ml-8">More Me. ♡</p>
+            <p class="font-script text-4xl md:text-5xl text-dark-text drop-shadow-md">A Little</p>
+            <p class="font-script text-4xl md:text-5xl text-dark-text drop-shadow-md ml-8">More Me. ♡</p>
         </div>
     </section>
 
@@ -232,26 +248,26 @@
     </section>
 
     <section id="about" class="py-24 px-6 md:px-12 relative overflow-hidden bg-cover bg-center" style="background-image: url('cover.jpg');">
-        <!-- Soft lavender/white overlay to ensure text and photos remain clearly legible -->
-        <div class="absolute inset-0 bg-gradient-to-br from-white/95 via-white/85 to-lavender-100/90 z-0 backdrop-blur-[2px]"></div>
+        <!-- Removed heavy overlay so cover.jpg is completely visible -->
+        <div class="absolute inset-0 bg-dark-text/10 z-0 pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-8 relative z-10">
             
-            <!-- Text Content -->
-            <div class="w-full lg:w-1/2 space-y-8 reveal-up z-10">
-                <h2 class="font-script text-6xl md:text-7xl lg:text-8xl text-lavender-300 mb-2 text-center lg:text-left leading-tight">
+            <!-- Text Content placed inside a subtle glass card to maintain perfect legibility -->
+            <div class="w-full lg:w-1/2 space-y-8 reveal-up z-10 bg-white/75 backdrop-blur-lg p-8 md:p-12 rounded-2xl shadow-soft border border-white/60">
+                <h2 class="font-script text-6xl md:text-7xl lg:text-8xl text-lavender-300 mb-2 text-center lg:text-left leading-tight drop-shadow-sm">
                     Hello,<br>
                     <span class="text-dark-text ml-4 md:ml-12">I'm Franz ♡</span>
                 </h2>
                 
-                <div class="font-sans text-sm md:text-base leading-relaxed text-dark-text/80 space-y-6 max-w-lg mx-auto lg:mx-0">
+                <div class="font-sans text-sm md:text-base leading-relaxed text-dark-text space-y-6 max-w-lg mx-auto lg:mx-0 font-medium">
                     <p>I'm a daughter, a sister, a friend, and a dreamer.</p>
                     <p>I love the simple things — good music, late night talks, cozy days, and the people who make life feel more magical.</p>
                     <p>I may be quiet at first, but once I'm comfortable, I'm all in — with deep thoughts, silly jokes, and a heart that feels everything.</p>
                     <p>This 18th is not just a celebration of growing up, but a reminder of how far I've come and how much I still have to look forward to.</p>
                 </div>
                 
-                <p class="font-script text-3xl md:text-4xl text-lavender-300 mt-8 text-center lg:text-left italic">A Little More Me. ♡</p>
+                <p class="font-script text-3xl md:text-4xl text-lavender-300 mt-8 text-center lg:text-left italic drop-shadow-sm">A Little More Me. ♡</p>
             </div>
 
             <!-- Polaroid Collage -->
@@ -592,13 +608,13 @@
         // Scroll Effects for Navbar
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                navbar.classList.add('shadow-md', 'bg-white/95');
-                navbar.classList.remove('bg-white/70');
+                navbar.classList.add('shadow-md', 'bg-white/95', 'border-b', 'border-lavender-100/50');
+                navbar.classList.remove('bg-transparent', 'border-transparent');
                 navbar.classList.remove('py-5');
                 navbar.classList.add('py-3');
             } else {
-                navbar.classList.remove('shadow-md', 'bg-white/95');
-                navbar.classList.add('bg-white/70');
+                navbar.classList.remove('shadow-md', 'bg-white/95', 'border-b', 'border-lavender-100/50');
+                navbar.classList.add('bg-transparent', 'border-transparent');
                 navbar.classList.remove('py-3');
                 navbar.classList.add('py-5');
             }
