@@ -124,7 +124,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.6); /* Updated to exactly 60% overlay */
+            background: rgba(0, 0, 0, 0.6); /* Updated to dark 60% dimmer */
             z-index: 1;
         }
 
@@ -142,28 +142,29 @@
             font-size: 0.85rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--color-dark-ink);
+            color: var(--color-white);
         }
 
         .hero-title {
             font-size: 3.5rem;
             line-height: 1.1;
             margin: 10px 0;
-            color: var(--color-dark-ink);
+            color: var(--color-white);
         }
 
         .hero-script {
             font-size: 6rem;
             margin-top: -20px;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 8px rgba(255,255,255,0.7);
+            color: var(--color-white);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
         .hero-message {
             font-family: var(--font-serif);
             font-size: 1.1rem;
             font-style: italic;
-            color: var(--color-dark-ink);
+            color: var(--color-white);
             margin-bottom: 1rem;
         }
 
@@ -174,12 +175,14 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
+            color: var(--color-white);
         }
 
         .explore-btn {
             margin-top: 2rem;
             padding: 8px 20px;
-            border: 1px solid var(--color-dark-ink);
+            border: 1px solid var(--color-white);
+            color: var(--color-white);
             border-radius: 30px;
             background: transparent;
             font-family: var(--font-sans);
@@ -192,8 +195,8 @@
         }
 
         .explore-btn:hover {
-            background: var(--color-dark-ink);
-            color: var(--color-white);
+            background: var(--color-white);
+            color: var(--color-dark-ink);
         }
 
         /* --- ABOUT --- */
