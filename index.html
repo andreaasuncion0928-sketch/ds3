@@ -14,6 +14,7 @@
             --color-deep-lavender: #755394;
             --color-dark-ink: #30243C;
             --color-white: #FFFFFF;
+            --color-sage: #D1D9C5; /* Elegant extended green background */
             
             --font-script: 'Great Vibes', cursive;
             --font-serif: 'Playfair Display', serif;
@@ -207,40 +208,65 @@
             margin-top: 2rem;
         }
 
-        /* --- EVENT DETAILS --- */
+        /* --- EVENT DETAILS (Split Layout) --- */
         #details {
-            background-color: var(--color-white);
+            padding: 0; /* Reset padding for full-bleed layout */
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            background-color: var(--color-sage);
+        }
+
+        .details-left {
+            flex: 1;
+            background-image: url('p10.jpeg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        .details-right {
+            flex: 1;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
         }
 
-        .section-title {
+        .details-right .section-title {
             font-size: 2.5rem;
             margin-bottom: 3rem;
             color: var(--color-dark-ink);
         }
 
         .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto 3rem auto;
+            max-width: 400px;
+            margin-bottom: 3rem;
         }
 
         .detail-item {
-            padding: 20px;
-            border-right: 1px solid var(--color-soft-lavender);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 1px solid rgba(48, 36, 60, 0.2);
+            padding-bottom: 1.5rem;
         }
         
         .detail-item:last-child {
-            border-right: none;
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
         .detail-item svg {
             width: 40px;
             height: 40px;
-            fill: var(--color-muted-lilac);
+            fill: var(--color-dark-ink);
             margin-bottom: 15px;
         }
 
@@ -248,13 +274,19 @@
             font-size: 0.9rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            color: var(--color-dark-ink);
+        }
+
+        .detail-item p {
+            color: var(--color-dark-ink);
+            opacity: 0.8;
         }
 
         .map-btn {
             display: inline-block;
             padding: 12px 32px;
-            background-color: var(--color-muted-lilac);
+            background-color: var(--color-dark-ink);
             color: var(--color-white);
             border-radius: 30px;
             font-size: 0.85rem;
@@ -271,6 +303,7 @@
         #traditions {
             background-color: var(--color-ivory);
             text-align: center;
+            padding: 100px 20px;
         }
 
         .traditions-grid {
@@ -279,6 +312,7 @@
             gap: 2rem;
             width: 100%;
             max-width: 900px;
+            margin: 0 auto;
         }
 
         .tradition-item {
@@ -314,6 +348,7 @@
         /* --- GALLERY --- */
         #gallery {
             background-color: var(--color-white);
+            padding: 100px 20px;
         }
 
         .gallery-grid {
@@ -322,6 +357,7 @@
             gap: 15px;
             width: 100%;
             max-width: 1000px;
+            margin: 0 auto;
         }
 
         .gallery-item {
@@ -348,6 +384,7 @@
         #rsvp {
             background-color: var(--color-ivory);
             text-align: center;
+            padding: 100px 20px;
         }
 
         .rsvp-card {
@@ -357,6 +394,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.03);
             max-width: 600px;
             width: 100%;
+            margin: 0 auto;
             border: 1px solid var(--color-soft-lavender);
         }
 
@@ -417,9 +455,20 @@
         @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
             .hero-script { font-size: 4.5rem; }
-            .detail-item { border-right: none; border-bottom: 1px solid var(--color-soft-lavender); }
-            .detail-item:last-child { border-bottom: none; }
             .about-glass-card { padding: 40px 20px; }
+            
+            /* Responsive Details Section */
+            #details {
+                flex-direction: column;
+            }
+            .details-left {
+                width: 100%;
+                min-height: 50vh;
+            }
+            .details-right {
+                width: 100%;
+                padding: 60px 20px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -454,36 +503,41 @@
     <section id="about">
         <div class="about-glass-card">
             <div class="script-text">Hello, I'm Franz</div>
-            <p>I've always believed that the best parts of life are found in the details—the quiet mornings with a good book, spontaneous trips, and the perfect playlist that scores it all.</p>
-            <p>As I step into this new chapter, I am bringing my love for [insert hobby/passion, e.g., capturing raw moments on film] along with a deep excitement for what’s next. I'm learning, evolving, and chasing dreams that are bigger than before.</p>
-            <p>Thank you for being part of the beautiful chaos that got me here. This milestone is as much yours as it is mine.</p>
+            <p>I've always found beauty in the quieter, more intentional moments of life—losing myself in the pages of a classic novel, the soothing rhythm of good jazz music spinning on a relaxed afternoon, and the meticulous, creative art of makeup.</p>
+            <p>As I step into this new chapter, I am carrying these passions with me. I'm learning, evolving, and taking the time to embrace the woman I am becoming. Thank you for being part of this beautiful journey.</p>
             <div class="signature">A Little More Me</div>
         </div>
     </section>
 
-    <!-- 3. EVENT DETAILS -->
+    <!-- 3. EVENT DETAILS (Split Layout) -->
     <section id="details">
-        <h2 class="script-text section-title">Join Me On This Special Day</h2>
+        <!-- Left Side: Image -->
+        <div class="details-left"></div>
         
-        <div class="details-grid">
-            <div class="detail-item">
-                <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
-                <h4>September 27, 2026</h4>
-                <p>Sunday</p>
+        <!-- Right Side: Green Background & Info -->
+        <div class="details-right">
+            <h2 class="script-text section-title">Join Me On This Special Day</h2>
+            
+            <div class="details-grid">
+                <div class="detail-item">
+                    <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
+                    <h4>September 27, 2026</h4>
+                    <p>Sunday</p>
+                </div>
+                <div class="detail-item">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    <h4>6:00 PM</h4>
+                    <p>Evening</p>
+                </div>
+                <div class="detail-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <h4>The Grand Magnolia Manor</h4>
+                    <p>Manila, Philippines</p>
+                </div>
             </div>
-            <div class="detail-item">
-                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                <h4>6:00 PM</h4>
-                <p>Evening</p>
-            </div>
-            <div class="detail-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                <h4>The Grand Magnolia Manor</h4>
-                <p>Manila, Philippines</p>
-            </div>
-        </div>
 
-        <a href="#" class="map-btn">View Map</a>
+            <a href="#" class="map-btn">View Map</a>
+        </div>
     </section>
 
     <!-- 4. THE 18 TRADITIONS -->
