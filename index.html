@@ -14,6 +14,7 @@
             --color-ivory: #F8F5FA;
             --color-soft-lavender: #E5D9EF;
             --color-muted-lilac: #B49ACF;
+            --color-bright-lavender: #C4A6E8; /* Added for the hero text pop */
             --color-deep-lavender: #755394;
             --color-dark-ink: #30243C;
             --color-sage: #D1D9C5;
@@ -104,10 +105,9 @@
             justify-content: center;
         }
 
-        /* --- HOME --- */
+        /* --- HOME / HERO SECTION --- */
         #home {
             height: 100vh;
-            width: 100%;
             padding: 0 20px;
             background-image: url('home.jpeg'); 
             background-size: cover; 
@@ -120,11 +120,12 @@
             position: relative;
         }
 
+        /* 80% Dark cinematic overlay */
         #home::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* Updated to dark 60% dimmer */
+            background: rgba(0, 0, 0, 0.8); 
             z-index: 1;
         }
 
@@ -156,8 +157,8 @@
             font-size: 6rem;
             margin-top: -20px;
             margin-bottom: 10px;
-            color: var(--color-white);
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            color: var(--color-bright-lavender); /* Highlighted in bright lavender */
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(196, 166, 232, 0.4);
         }
 
         .hero-message {
@@ -549,7 +550,7 @@
         }
 
         .highlight-wrapper {
-            border-top: 1px solid rgba(48, 36, 60, 0.3);
+            border-top: 1px solid rgba(48, 36, 60, 0.3); /* Delicate divider */
             padding-top: 20px;
             margin-top: 10px;
         }
@@ -562,7 +563,7 @@
             letter-spacing: 0.1em;
             font-size: 0.9rem;
             display: inline-block;
-            background-color: var(--color-dark-ink);
+            background-color: var(--color-dark-ink); /* Dark pill background */
             color: var(--color-white) !important;
             padding: 12px 28px;
             border-radius: 30px;
@@ -972,7 +973,7 @@
 
         function playAudio(skipIntro = false) {
             if(skipIntro) {
-                // Skip the first 2.5 seconds of dead air/intro
+                // Skip the first 2.5 seconds of dead air/intro instantly
                 audio.currentTime = 2.5; 
             }
             audio.play().then(() => {
