@@ -124,7 +124,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.35); 
+            background: rgba(255, 255, 255, 0.6); /* Updated to exactly 60% overlay */
             z-index: 1;
         }
 
@@ -474,7 +474,6 @@
             transform: scale(1.1);
         }
 
-        /* Enforce pure white script text for headers */
         .modal-title, .modal-subtitle {
             color: #FFFFFF !important;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); 
@@ -527,7 +526,6 @@
             display: none;
         }
 
-        /* Match the reference image style exactly */
         .modal-result .result-header {
             font-family: var(--font-script);
             font-size: 3.2rem;
@@ -570,7 +568,7 @@
         }
 
         #locked-sections {
-            display: none; /* Unlocked via JS */
+            display: none;
         }
 
         /* --- GALLERY --- */
@@ -620,7 +618,7 @@
 
         .slide.active {
             opacity: 1;
-            transform: scale(1.1);
+            transform: scale(1.1); /* Subtle Ken Burns effect */
         }
 
         /* --- RSVP --- */
