@@ -64,6 +64,7 @@
         .glass-card {
             position: relative;
             z-index: 2;
+            /* Exactly 20% opacity white background */
             background: rgba(255, 255, 255, 0.2); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -103,6 +104,7 @@
             justify-content: center;
         }
 
+        /* --- HOME --- */
         #home {
             height: 100vh;
             width: 100%;
@@ -194,6 +196,7 @@
             color: var(--color-white);
         }
 
+        /* --- ABOUT --- */
         #about {
             min-height: 100vh;
             padding: 100px 20px;
@@ -228,6 +231,7 @@
             margin-top: 2rem;
         }
 
+        /* --- DETAILS (Split Screen) --- */
         #details {
             min-height: 100vh;
             width: 100%;
@@ -335,6 +339,7 @@
             opacity: 0.9;
         }
 
+        /* --- TRADITIONS --- */
         #traditions {
             background-image: url('cover3.jpg');
             background-size: cover;
@@ -469,12 +474,8 @@
             transform: scale(1.1);
         }
 
-        .modal-card h3,
-        .modal-card p,
-        .modal-title,
-        .modal-subtitle,
-        .modal-description,
-        .highlight-role {
+        /* Enforce pure white script text for headers */
+        .modal-title, .modal-subtitle {
             color: #FFFFFF !important;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); 
         }
@@ -498,6 +499,7 @@
             font-family: var(--font-serif); 
             font-size: 1rem; 
             font-style: italic; 
+            color: var(--color-dark-ink);
         }
 
         .name-input {
@@ -525,14 +527,17 @@
             display: none;
         }
 
-        .modal-result h3 {
+        /* Match the reference image style exactly */
+        .modal-result .result-header {
             font-family: var(--font-script);
             font-size: 3.2rem;
             margin-bottom: 1rem;
             line-height: 1.2;
+            color: #FFFFFF;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); 
         }
 
-        .modal-result p {
+        .modal-result p.result-text {
             font-family: var(--font-serif);
             font-style: italic;
             font-size: 1.2rem;
@@ -568,6 +573,7 @@
             display: none; /* Unlocked via JS */
         }
 
+        /* --- GALLERY --- */
         #gallery {
             background-image: url('cover2.jpg');
             background-size: cover;
@@ -617,6 +623,7 @@
             transform: scale(1.1);
         }
 
+        /* --- RSVP --- */
         #rsvp {
             background-image: url('cover3.jpg');
             background-size: cover;
@@ -692,6 +699,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
+        /* --- CLOSING --- */
         #closing {
             background-color: var(--color-dark-ink);
             color: var(--color-white);
@@ -708,6 +716,7 @@
             text-transform: uppercase;
         }
 
+        /* --- EFFECTS & UTILS --- */
         .interactive-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -955,12 +964,16 @@
     </div>
 
     <script>
-        // --- Music Controls ---
+        // --- Music Controls with Auto-Skip Intro ---
         const audio = document.getElementById('bgMusic');
         const musicIcon = document.getElementById('musicIcon');
         let isMusicPlaying = false;
 
-        function playAudio() {
+        function playAudio(skipIntro = false) {
+            if(skipIntro) {
+                // Skip the first 2.5 seconds of dead air/intro
+                audio.currentTime = 2.5; 
+            }
             audio.play().then(() => {
                 isMusicPlaying = true;
                 updateMusicIcon();
@@ -974,7 +987,7 @@
                 audio.pause();
                 isMusicPlaying = false;
             } else {
-                playAudio();
+                playAudio(false);
             }
             updateMusicIcon();
         }
@@ -990,7 +1003,8 @@
         // --- Interaction Logic ---
         function unlockScrollAndExplore() {
             document.body.classList.remove('no-scroll');
-            playAudio(); // Autoplays immediately via interaction
+            // Play instantly and skip the 2.5 second intro when explore is clicked
+            playAudio(true); 
             document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -1056,17 +1070,17 @@
             if (partOf18[name]) {
                 const role = partOf18[name];
                 resultSection.innerHTML = `
-                    <h3>A little something for you, Franz's way. ♡</h3>
-                    <p>Thank you for being part of this special chapter in my life. I'm looking forward to celebrating this moment with you.</p>
+                    <div class="result-header">A little something for you,<br>Franz's way. ♡</div>
+                    <p class="result-text">Thank you for being part of this special chapter in my life. I'm looking forward to celebrating this moment with you.</p>
                     <div class="highlight-wrapper">
                         <div class="highlight-role">You're part of my ${role}</div>
                     </div>
                 `;
             } else {
                 resultSection.innerHTML = `
-                    <h3>You're part of my story. ♡</h3>
-                    <p>You may not be part of one of my 18 traditions, but having you celebrate this special day with me means so much.</p>
-                    <p>I hope to see you there!</p>
+                    <div class="result-header">You're part of my story. ♡</div>
+                    <p class="result-text">You may not be part of one of my 18 traditions, but having you celebrate this special day with me means so much.</p>
+                    <p class="result-text" style="margin-bottom:0;">I hope to see you there!</p>
                 `;
             }
             
