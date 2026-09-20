@@ -1,775 +1,558 @@
+<!-- web_code_canvas: index.html -->
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Franz's 18th Birthday Invitation</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-    
-    <!-- Phosphor Icons (for delicate, thin line icons matching the design) -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
-    <!-- FontAwesome (for standard icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        white: '#FFFFFF',
-                        ivory: '#F8F5FA',       /* Requested Ivory */
-                        'lavender-100': '#E5D9EF', /* Soft Lavender */
-                        'lavender-200': '#B49ACF', /* Muted Lilac */
-                        'lavender-300': '#755394', /* Deep Lavender */
-                        'dark-text': '#30243C',    /* Dark Ink */
-                    },
-                    fontFamily: {
-                        script: ['"Great Vibes"', 'cursive'],
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'polaroid': '0 15px 25px -5px rgba(48, 36, 60, 0.1), 0 8px 10px -6px rgba(48, 36, 60, 0.1)',
-                        'soft': '0 4px 20px -2px rgba(180, 154, 207, 0.2)',
-                    },
-                    height: {
-                        'screen-safe': '100dvh', /* Modern 100vh support for mobile browsers */
-                    }
-                }
-            }
-        }
-    </script>
-
+    <title>Franz's 18th Birthday</title>
     <style>
+        /* CSS VARIABLES */
+        :root {
+            --color-ivory: #F8F5FA;
+            --color-soft-lavender: #E5D9EF;
+            --color-muted-lilac: #B49ACF;
+            --color-deep-lavender: #755394;
+            --color-dark-ink: #30243C;
+            --color-white: #FFFFFF;
+            
+            --font-script: 'Great Vibes', cursive;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: theme('colors.ivory');
-            color: theme('colors.dark-text');
+            font-family: var(--font-sans);
+            color: var(--color-dark-ink);
+            background-color: var(--color-ivory);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: theme('colors.ivory'); }
-        ::-webkit-scrollbar-thumb { background: theme('colors.lavender-200'); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: theme('colors.lavender-300'); }
-
-        /* Animations */
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-up.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-fade {
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .reveal-fade.active {
-            opacity: 1;
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        /* Polaroid Image Style */
-        .polaroid {
-            background: white;
-            padding: 8px 8px 40px 8px;
-            box-shadow: theme('boxShadow.polaroid');
-            transition: transform 0.4s ease, z-index 0s;
+        ul {
+            list-style: none;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+        }
+
+        .script-text {
+            font-family: var(--font-script);
+            color: var(--color-deep-lavender);
+            font-size: 4rem;
+            line-height: 1;
+        }
+
+        /* SECTION STYLES */
+        section {
+            padding: 100px 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- HOME / HERO SECTION --- */
+        #home {
+            height: 100vh;
+            padding: 0 20px;
+            background-image: url('home.jpeg'); /* User specified background */
+            background-size: cover; /* Ensures no stretching */
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             position: relative;
         }
-        @media (min-width: 768px) {
-            .polaroid { padding: 12px 12px 50px 12px; }
-        }
-        .polaroid:hover {
-            transform: scale(1.03) rotate(0deg) !important;
-            z-index: 20;
-        }
 
-        /* Torn Paper Effect */
-        .torn-paper {
-            background-color: theme('colors.lavender-100');
-            position: relative;
-            box-shadow: theme('boxShadow.soft');
-        }
-        .torn-paper::before, .torn-paper::after {
+        /* Soft overlay to ensure text readability over the image */
+        #home::before {
             content: '';
             position: absolute;
-            left: 0; right: 0;
-            height: 8px;
-            background-size: 16px 16px;
-        }
-        .torn-paper::before {
-            top: -4px;
-            background-image: radial-gradient(circle at 8px 0, transparent 8px, theme('colors.lavender-100') 9px);
-        }
-        .torn-paper::after {
-            bottom: -4px;
-            background-image: radial-gradient(circle at 8px 16px, transparent 8px, theme('colors.lavender-100') 9px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.4); 
+            z-index: 1;
         }
 
-        /* Floral Background Accents */
-        .floral-bg-left {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23B49ACF" opacity="0.15"><path d="M10,90 Q30,70 20,40 Q40,60 70,50 Q50,80 10,90 Z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: bottom left;
-            background-size: 300px;
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            max-width: 600px;
         }
-        .floral-bg-right {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23B49ACF" opacity="0.15"><path d="M90,10 Q70,30 80,60 Q60,40 30,50 Q50,20 90,10 Z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: top right;
-            background-size: 300px;
+
+        .hero-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-dark-ink);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin: 10px 0;
+            color: var(--color-dark-ink);
+        }
+
+        .hero-script {
+            font-size: 6rem;
+            margin-top: -20px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(255,255,255,0.7);
+        }
+
+        .hero-message {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--color-dark-ink);
+            margin-bottom: 1rem;
+        }
+
+        .hero-details {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            /* Removed card panel for minimalist vibe */
+        }
+
+        .explore-btn {
+            margin-top: 2rem;
+            padding: 10px 24px; /* Smaller, more delicate */
+            border: 1px solid var(--color-dark-ink);
+            border-radius: 30px;
+            background: transparent;
+            font-family: var(--font-sans);
+            font-size: 0.75rem; /* Smaller but readable */
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .explore-btn:hover {
+            background: var(--color-dark-ink);
+            color: var(--color-white);
+        }
+
+        /* --- ABOUT SECTION --- */
+        #about {
+            min-height: 100vh;
+            background-image: url('cover.jpg'); /* User specified */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .about-glass-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            padding: 60px 40px;
+            border-radius: 12px;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .about-glass-card .script-text {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-glass-card p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-dark-ink);
+        }
+
+        .about-glass-card .signature {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            color: var(--color-deep-lavender);
+            margin-top: 2rem;
+        }
+
+        /* --- EVENT DETAILS --- */
+        #details {
+            background-color: var(--color-white);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--color-dark-ink);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .detail-item {
+            padding: 20px;
+            border-right: 1px solid var(--color-soft-lavender);
         }
         
-        /* Grid layout for gallery */
+        .detail-item:last-child {
+            border-right: none;
+        }
+
+        .detail-item svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--color-muted-lilac);
+            margin-bottom: 15px;
+        }
+
+        .detail-item h4 {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .map-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background-color: var(--color-muted-lilac);
+            color: var(--color-white);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .map-btn:hover {
+            background-color: var(--color-deep-lavender);
+        }
+
+        /* --- THE 18 TRADITIONS --- */
+        #traditions {
+            background-color: var(--color-ivory);
+            text-align: center;
+        }
+
+        .traditions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .tradition-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tradition-icon {
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--color-muted-lilac);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: var(--color-deep-lavender);
+        }
+
+        .tradition-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .tradition-item span {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--color-dark-ink);
+        }
+
+        /* --- GALLERY --- */
+        #gallery {
+            background-color: var(--color-white);
+        }
+
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-auto-rows: 150px;
-            gap: 12px;
-        }
-        @media (min-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: 2fr 1fr 1fr;
-                grid-template-rows: repeat(2, 250px);
-            }
-            .gallery-feature {
-                grid-column: 1 / 2;
-                grid-row: 1 / 3;
-            }
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1000px;
         }
 
-        .butterfly-element {
-            position: absolute;
-            pointer-events: none;
-            z-index: 45;
-            width: 28px;
-            height: 28px;
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 4/5;
+            background-color: var(--color-soft-lavender);
+            cursor: pointer;
         }
-        @keyframes riseUp {
-            0% { transform: translateY(0) scale(0.8); opacity: 0; }
-            10% { opacity: 0.25; }
-            90% { opacity: 0.25; }
-            100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- RSVP --- */
+        #rsvp {
+            background-color: var(--color-ivory);
+            text-align: center;
+        }
+
+        .rsvp-card {
+            background: var(--color-white);
+            padding: 60px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid var(--color-soft-lavender);
+        }
+
+        .rsvp-card p {
+            margin: 20px 0 30px 0;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--color-dark-ink);
+        }
+
+        /* --- CLOSING --- */
+        #closing {
+            background-color: var(--color-dark-ink);
+            color: var(--color-white);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        #closing .script-text {
+            color: var(--color-soft-lavender);
+            margin-bottom: 20px;
+        }
+
+        #closing p {
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* --- INTERACTIVE RISING ELEMENTS (Very Subtle & Slow) --- */
+        .interactive-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .rising-element {
+            position: absolute;
+            bottom: -20px;
+            width: 15px;
+            height: 15px;
+            background-color: var(--color-muted-lilac);
+            opacity: 0.15; /* Very subtle */
+            border-radius: 50%; /* Simple circle instead of complex shape to avoid distraction */
+            animation: floatUp 35s linear infinite; /* Very slow */
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0; }
+            5% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { transform: translateY(-110vh); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-script { font-size: 4.5rem; }
+            .detail-item { border-right: none; border-bottom: 1px solid var(--color-soft-lavender); }
+            .detail-item:last-child { border-bottom: none; }
+            .about-glass-card { padding: 40px 20px; }
         }
     </style>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
-<body class="font-sans antialiased selection:bg-lavender-200 selection:text-white relative">
+<body>
 
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-5 px-6 md:px-12 bg-transparent border-transparent">
-        <div class="max-w-7xl mx-auto flex justify-between items-center w-full">
+    <!-- Subtle Rising Elements Container -->
+    <div class="interactive-container" id="interactive-container"></div>
+
+    <!-- 1. HOMEPAGE / HERO -->
+    <section id="home">
+        <div class="hero-content">
+            <span class="hero-subtitle">You're Invited To</span>
+            <h1 class="hero-title">FRANZ'S</h1>
+            <div class="script-text hero-script">18th Birthday</div>
             
-            <!-- Logo -->
-            <a href="#home" class="font-script text-3xl md:text-4xl text-lavender-300 hover:text-lavender-200 transition-colors drop-shadow-md">Franz's 18th</a>
+            <div class="hero-message">A Moment of Becoming</div>
             
-            <!-- Desktop Nav -->
-            <div class="hidden lg:flex items-center space-x-8 font-sans text-[10px] tracking-[0.2em] uppercase font-semibold">
-                <a href="#home" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">Home</a>
-                <a href="#about" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">About</a>
-                <a href="#details" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">Details</a>
-                <a href="#the-18" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">The 18</a>
-                <a href="#gallery" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">Gallery</a>
-                <a href="#rsvp" class="hover:text-lavender-300 transition-colors text-dark-text drop-shadow-sm">RSVP</a>
+            <div class="hero-details">
+                <span>September 27, 2026 &nbsp;&bull;&nbsp; 6:00 PM</span>
+                <span>The Grand Magnolia Manor</span>
             </div>
 
-            <div class="hidden md:block text-lavender-300 text-xl drop-shadow-md">
-                <i class="ph ph-butterfly"></i>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="lg:hidden text-2xl text-lavender-300 focus:outline-none drop-shadow-md" aria-label="Toggle Menu">
-                <i class="ph ph-list"></i>
+            <button class="explore-btn" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+                Explore
             </button>
         </div>
+    </section>
 
-        <!-- Mobile Nav -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-soft flex flex-col items-center py-8 space-y-6 font-sans text-xs tracking-[0.2em] uppercase border-t border-lavender-100">
-            <a href="#home" class="mobile-link hover:text-lavender-300 transition-colors">Home</a>
-            <a href="#about" class="mobile-link hover:text-lavender-300 transition-colors">About</a>
-            <a href="#details" class="mobile-link hover:text-lavender-300 transition-colors">Details</a>
-            <a href="#the-18" class="mobile-link hover:text-lavender-300 transition-colors">The 18</a>
-            <a href="#gallery" class="mobile-link hover:text-lavender-300 transition-colors">Gallery</a>
-            <a href="#rsvp" class="mobile-link hover:text-lavender-300 transition-colors">RSVP</a>
+    <!-- 2. ABOUT -->
+    <section id="about">
+        <div class="about-glass-card">
+            <div class="script-text">Hello, I'm Franz</div>
+            <p>I'm a daughter, a sister, a friend, and a dreamer.</p>
+            <p>I love the simple things — good music, late night talks, cozy days, and the people who make life feel more magical.</p>
+            <p>This 18th is not just a celebration of growing up, but a reminder of how far I've come and how much I still have to look forward to.</p>
+            <div class="signature">A Little More Me</div>
         </div>
-    </nav>
+    </section>
 
-    <section id="home" class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('home.jpeg');">
+    <!-- 3. EVENT DETAILS -->
+    <section id="details">
+        <h2 class="script-text section-title">Join Me On This Special Day</h2>
         
-        <!-- Very subtle Overlay to ensure text readability while keeping the image completely visible to the edges -->
-        <div class="absolute inset-0 bg-white/20 z-0"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-white/70 z-0 pointer-events-none"></div>
+        <div class="details-grid">
+            <div class="detail-item">
+                <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
+                <h4>September 27, 2026</h4>
+                <p>Sunday</p>
+            </div>
+            <div class="detail-item">
+                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                <h4>6:00 PM</h4>
+                <p>Evening</p>
+            </div>
+            <div class="detail-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <h4>The Grand Magnolia Manor</h4>
+                <p>Manila, Philippines</p>
+            </div>
+        </div>
+
+        <a href="#" class="map-btn">View Map</a>
+    </section>
+
+    <!-- 4. THE 18 TRADITIONS -->
+    <section id="traditions">
+        <h2 class="script-text section-title">My 18 Traditions</h2>
         
-        <!-- Centered Content -->
-        <div class="relative w-full max-w-4xl flex flex-col justify-center items-center text-center px-6 md:px-12 z-10 reveal-up pt-12">
-            <p class="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-dark-text/90 mb-6 font-bold drop-shadow-md">You're Invited To</p>
-            
-            <h2 class="font-serif text-2xl md:text-3xl tracking-[0.2em] uppercase text-dark-text mb-[-15px] z-10 drop-shadow-md">Franz's</h2>
-            <h1 class="font-script text-7xl md:text-9xl lg:text-[140px] text-lavender-300 mb-4 drop-shadow-lg leading-none">18th</h1>
-            <h2 class="font-script text-5xl md:text-7xl lg:text-[90px] text-dark-text mb-8 -mt-6 md:-mt-10 leading-none drop-shadow-md">Birthday</h2>
-            
-            <p class="font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase text-dark-text/90 mb-6 font-bold drop-shadow-md">A Moment of Becoming</p>
-            
-            <div class="flex items-center gap-4 text-lavender-300 mb-6 drop-shadow-sm">
-                <span class="w-12 h-px bg-lavender-300"></span>
-                <i class="ph-fill ph-sparkle"></i>
-                <span class="w-12 h-px bg-lavender-300"></span>
+        <div class="traditions-grid">
+            <div class="tradition-item">
+                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+                <span>18 Roses</span>
             </div>
-            
-            <!-- Information Card -->
-            <p class="font-sans text-xs tracking-[0.2em] text-dark-text/90 mb-10 font-bold drop-shadow-sm bg-white/50 px-8 py-4 rounded-full backdrop-blur-md shadow-sm border border-white/60">
-                SEPTEMBER 27, 2026 &nbsp;&middot;&nbsp; 6:00 PM<br>
-                <span class="mt-1 block">THE GRAND MAGNOLIA MANOR</span>
-            </p>
-            
-            <a href="#story" class="inline-block border border-dark-text text-dark-text hover:bg-dark-text hover:text-white px-10 py-3 rounded-full transition-all duration-300 font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase bg-white/60 backdrop-blur-md shadow-sm">
-                Explore <i class="ph ph-caret-right inline-block ml-1 align-middle"></i>
-            </a>
-        </div>
-
-        <!-- Handwritten overlay text -->
-        <div class="absolute bottom-16 right-8 md:bottom-24 md:right-16 text-right rotate-[-5deg] z-10 reveal-fade hidden md:block">
-            <p class="font-script text-4xl md:text-5xl text-dark-text drop-shadow-md">A Little</p>
-            <p class="font-script text-4xl md:text-5xl text-dark-text drop-shadow-md ml-8">More Me. ♡</p>
-        </div>
-    </section>
-
-    <section id="story" class="py-24 px-6 md:px-12 bg-white relative overflow-hidden floral-bg-right">
-            <i class="ph-light ph-butterfly"></i>
-        </div>
-    </section>
-
-    <section id="about" class="py-24 px-6 md:px-12 relative overflow-hidden bg-cover bg-center" style="background-image: url('cover.jpg');">
-        <!-- Removed heavy overlay so cover.jpg is completely visible -->
-        <div class="absolute inset-0 bg-dark-text/10 z-0 pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-8 relative z-10">
-            
-            <!-- Text Content placed inside a subtle glass card to maintain perfect legibility -->
-            <div class="w-full lg:w-1/2 space-y-8 reveal-up z-10 bg-white/75 backdrop-blur-lg p-8 md:p-12 rounded-2xl shadow-soft border border-white/60">
-                <h2 class="font-script text-6xl md:text-7xl lg:text-8xl text-lavender-300 mb-2 text-center lg:text-left leading-tight drop-shadow-sm">
-                    Hello,<br>
-                    <span class="text-dark-text ml-4 md:ml-12">I'm Franz ♡</span>
-                </h2>
-                
-                <div class="font-sans text-sm md:text-base leading-relaxed text-dark-text space-y-6 max-w-lg mx-auto lg:mx-0 font-medium">
-                    <p>I'm a daughter, a sister, a friend, and a dreamer.</p>
-                    <p>I love the simple things — good music, late night talks, cozy days, and the people who make life feel more magical.</p>
-                    <p>I may be quiet at first, but once I'm comfortable, I'm all in — with deep thoughts, silly jokes, and a heart that feels everything.</p>
-                    <p>This 18th is not just a celebration of growing up, but a reminder of how far I've come and how much I still have to look forward to.</p>
-                </div>
-                
-                <p class="font-script text-3xl md:text-4xl text-lavender-300 mt-8 text-center lg:text-left italic drop-shadow-sm">A Little More Me. ♡</p>
+            <div class="tradition-item">
+                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div>
+                <span>18 Blue Bills</span>
             </div>
-
-            <!-- Polaroid Collage -->
-            <div class="w-full lg:w-1/2 relative h-[500px] md:h-[650px] reveal-fade mt-10 lg:mt-0">
-                <!-- Large Polaroid -->
-                <div class="polaroid absolute top-0 left-4 md:left-[10%] w-[240px] md:w-[320px] rotate-[-3deg] z-10">
-                    <!-- Placeholder replaced with high-quality unsplash image to look good immediately -->
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&q=80&w=600" alt="Franz Memory 1" class="w-full aspect-[4/5] object-cover rounded-sm">
-                </div>
-                
-                <!-- Small Polaroid 1 -->
-                <div class="polaroid absolute top-[250px] md:top-[300px] right-2 md:right-[5%] w-[180px] md:w-[220px] rotate-[8deg] z-20">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400" alt="Franz Memory 2" class="w-full aspect-square object-cover rounded-sm">
-                </div>
-                
-                <!-- Small Polaroid 2 -->
-                <div class="polaroid absolute bottom-0 left-[15%] md:left-[25%] w-[200px] md:w-[260px] rotate-[-5deg] z-30">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400" alt="Franz Memory 3" class="w-full aspect-[4/3] object-cover rounded-sm">
-                    <p class="absolute bottom-3 md:bottom-4 right-4 font-script text-xl md:text-2xl text-lavender-300">a little more me ♡</p>
-                </div>
-
-                <!-- Decorative elements -->
-                <div class="absolute top-[40%] right-[10%] text-lavender-200 text-5xl rotate-12 z-0 opacity-40">
-                    <i class="ph ph-flower-lotus"></i>
-                </div>
-                <div class="absolute top-[5%] right-[25%] text-lavender-300 text-3xl rotate-[-20deg] z-0 opacity-50">
-                    <i class="ph ph-butterfly"></i>
-                </div>
+            <div class="tradition-item">
+                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg></div>
+                <span>18 Treasures</span>
+            </div>
+            <div class="tradition-item">
+                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                <span>18 Guests</span>
             </div>
         </div>
     </section>
 
-    <section id="details" class="py-24 px-6 md:px-12 bg-ivory relative border-y border-lavender-100/50">
-        <!-- Corner Floral Accents -->
-        <div class="absolute top-8 left-8 text-lavender-200/40 text-6xl transform rotate-[-45deg]"><i class="ph ph-plant"></i></div>
-        <div class="absolute bottom-8 right-8 text-lavender-200/40 text-6xl transform rotate-[135deg]"><i class="ph ph-plant"></i></div>
-        
-        <div class="max-w-5xl mx-auto text-center reveal-up">
-            <p class="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-dark-text/60 mb-4 font-semibold">Event Details</p>
-            <h2 class="font-script text-5xl md:text-7xl text-lavender-300 mb-4">Join Me On This Special Day</h2>
-            
-            <div class="flex items-center justify-center gap-4 text-lavender-200 mb-16">
-                <span class="w-20 h-[1px] bg-lavender-200"></span>
-                <i class="ph ph-heart-straight text-xl"></i>
-                <span class="w-20 h-[1px] bg-lavender-200"></span>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 mb-16 relative z-10">
-                <!-- Date -->
-                <div class="flex flex-col items-center p-6 border-b md:border-b-0 md:border-r border-lavender-200/40 pb-12 md:pb-6">
-                    <div class="w-16 h-16 flex items-center justify-center text-lavender-300 text-4xl mb-4 bg-white rounded-full shadow-sm border border-lavender-100">
-                        <i class="ph-light ph-calendar-blank"></i>
-                    </div>
-                    <p class="font-sans text-xs md:text-sm tracking-[0.1em] font-semibold text-dark-text mb-2 uppercase">September 27, 2026</p>
-                    <p class="font-serif text-sm md:text-base italic text-dark-text/70">Sunday</p>
-                </div>
-                
-                <!-- Time -->
-                <div class="flex flex-col items-center p-6 border-b md:border-b-0 md:border-r border-lavender-200/40 pb-12 md:pb-6">
-                    <div class="w-16 h-16 flex items-center justify-center text-lavender-300 text-4xl mb-4 bg-white rounded-full shadow-sm border border-lavender-100">
-                        <i class="ph-light ph-clock"></i>
-                    </div>
-                    <p class="font-sans text-xs md:text-sm tracking-[0.1em] font-semibold text-dark-text mb-2 uppercase">6:00 PM</p>
-                    <p class="font-serif text-sm md:text-base italic text-dark-text/70">Onwards</p>
-                </div>
-
-                <!-- Location -->
-                <div class="flex flex-col items-center p-6">
-                    <div class="w-16 h-16 flex items-center justify-center text-lavender-300 text-4xl mb-4 bg-white rounded-full shadow-sm border border-lavender-100">
-                        <i class="ph-light ph-map-pin"></i>
-                    </div>
-                    <p class="font-sans text-xs md:text-sm tracking-[0.1em] font-semibold text-dark-text mb-2 uppercase">The Grand Magnolia Manor</p>
-                    <p class="font-serif text-sm md:text-base italic text-dark-text/70">Manila, Philippines</p>
-                </div>
-            </div>
-
-            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="inline-block bg-lavender-300 text-white hover:bg-lavender-200 hover:text-dark-text px-10 py-3 rounded-full transition-all duration-300 font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase shadow-sm relative z-10">
-                View Map <i class="ph ph-arrow-right inline-block ml-1 align-middle"></i>
-            </a>
-
-            <!-- Decorative Castle Silhouette Placeholder -->
-            <div class="absolute bottom-4 right-4 md:right-20 opacity-[0.08] pointer-events-none text-[150px] text-lavender-300">
-                <i class="ph-fill ph-castle-turret"></i>
-            </div>
+    <!-- 5. GALLERY -->
+    <section id="gallery">
+        <h2 class="script-text section-title">Moments That Matter</h2>
+        <div class="gallery-grid">
+            <!-- Placeholders -->
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+1" alt="Gallery 1"></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+2" alt="Gallery 2"></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+3" alt="Gallery 3"></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+4" alt="Gallery 4"></div>
         </div>
     </section>
 
-    <section id="the-18" class="py-24 px-6 md:px-12 bg-white relative floral-bg-left">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-20 reveal-up">
-                <p class="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-dark-text/60 mb-4 font-semibold">The 18</p>
-                <h2 class="font-script text-5xl md:text-7xl text-lavender-300 mb-4">My 18 Traditions</h2>
-                <p class="font-serif text-lg italic text-dark-text/70">A celebration of blessings, gratitude, and the journey ahead.</p>
-            </div>
-
-            <!-- Icons Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-y-16 max-w-4xl mx-auto reveal-fade">
-                
-                <!-- Row 1 -->
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-flower-rose"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">18 Roses</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-money"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Blue Bills</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-gift"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Treasures</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-users"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Guests</h3>
-                </div>
-
-                <!-- Row 2 -->
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-crown"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Debut</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-fire"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Candles</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-coins"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Coins</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-diamond"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Veil</h3>
-                </div>
-
-                <!-- Row 3 -->
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-cake"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Cake</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-wine"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Wine</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-sneaker"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Shoes</h3>
-                </div>
-
-                <div class="flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-lavender-200 flex items-center justify-center text-3xl text-lavender-300 mb-4 group-hover:bg-lavender-100 group-hover:scale-110 transition-all duration-300">
-                        <i class="ph-light ph-music-notes"></i>
-                    </div>
-                    <h3 class="font-sans text-xs tracking-[0.1em] font-semibold text-dark-text uppercase">Last Dance</h3>
-                </div>
-
-            </div>
+    <!-- 6. RSVP -->
+    <section id="rsvp">
+        <div class="rsvp-card">
+            <h2 class="script-text">Will you be there?</h2>
+            <p>Please let us know if you can join me to celebrate this special day.</p>
+            <a href="#" class="map-btn">RSVP Now</a>
         </div>
     </section>
 
-    <section id="gallery" class="py-24 px-6 md:px-12 bg-ivory border-t border-lavender-100/50">
-        <div class="max-w-6xl mx-auto text-center">
-            <div class="reveal-up mb-12">
-                <p class="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-dark-text/60 mb-4 font-semibold">Gallery</p>
-                <h2 class="font-script text-5xl md:text-7xl text-lavender-300">Moments That Matter ♡</h2>
-            </div>
-
-            <!-- 10 Image Grid Layout -->
-            <div class="gallery-grid reveal-fade mb-12">
-                <!-- Image 1 (Feature Tall) -->
-                <div class="gallery-feature-tall overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1518550678255-6677f547c1ba?auto=format&fit=crop&q=80&w=800')">
-                    <div class="absolute inset-0 bg-dark-text/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center"><i class="ph ph-magnifying-glass-plus text-white text-3xl"></i></div>
-                    <img src="https://images.unsplash.com/photo-1518550678255-6677f547c1ba?auto=format&fit=crop&q=80&w=800" alt="Gallery 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-                
-                <!-- Image 2 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&q=80&w=600" alt="Gallery 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-                
-                <!-- Image 3 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=600" alt="Gallery 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-                
-                <!-- Image 4 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=600" alt="Gallery 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-                
-                <!-- Image 5 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&q=80&w=600" alt="Gallery 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-
-                <!-- Image 6 (Feature Wide) -->
-                <div class="gallery-feature-wide overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&q=80&w=800')">
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&q=80&w=800" alt="Gallery 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-
-                <!-- Image 7 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Gallery 7" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-
-                <!-- Image 8 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600" alt="Gallery 8" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-
-                <!-- Image 9 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600" alt="Gallery 9" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-
-                <!-- Image 10 -->
-                <div class="overflow-hidden rounded-sm cursor-pointer group shadow-sm border-[4px] border-white relative bg-lavender-100" onclick="openLightbox('https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&q=80&w=600')">
-                    <img src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&q=80&w=600" alt="Gallery 10" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                </div>
-            </div>
-        </div>
+    <!-- 7. CLOSING -->
+    <section id="closing">
+        <div class="script-text">Thank You</div>
+        <p>For being part of my story</p>
+        <p style="margin-top: 10px; font-size: 0.8rem; color: var(--color-muted-lilac);">FRANZ &bull; 09.27.2026</p>
     </section>
-
-    <section id="rsvp" class="py-24 px-6 md:px-12 bg-white relative overflow-hidden floral-bg-right">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-16">
-            
-            <!-- RSVP Text and Button -->
-            <div class="w-full md:w-1/2 text-center md:text-left reveal-up z-10">
-                <p class="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-dark-text/60 mb-4 font-semibold">Kindly Reply</p>
-                <h2 class="font-script text-6xl md:text-7xl text-lavender-300 mb-6">Will you be there? ♡</h2>
-                
-                <p class="font-sans text-sm md:text-base leading-relaxed text-dark-text/70 max-w-md mx-auto md:mx-0 mb-10">
-                    It would mean so much to me to celebrate this special milestone with you. Please let us know if you can join me.
-                </p>
-                
-                <a href="#" target="_blank" class="inline-block bg-lavender-300 text-white hover:bg-lavender-200 hover:text-dark-text px-10 py-4 rounded-full transition-all duration-300 font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase shadow-sm">
-                    RSVP Now <i class="ph ph-arrow-right inline-block ml-1 align-middle"></i>
-                </a>
-            </div>
-
-            <!-- Torn Paper Graphic Note -->
-            <div class="w-full md:w-1/2 flex justify-center reveal-fade">
-                <div class="torn-paper p-10 md:p-16 rotate-[3deg] max-w-sm text-center">
-                    <p class="font-script text-3xl md:text-4xl text-lavender-300 leading-relaxed">
-                        I can't wait to share these precious moments and make beautiful memories with you. ♡
-                    </p>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <section id="closing" class="relative py-32 px-6 text-center text-white overflow-hidden bg-dark-text">
-        <!-- Dreamy lavender sunset background gradient -->
-        <div class="absolute inset-0 bg-gradient-to-b from-[#3a3045] via-lavender-300/40 to-dark-text opacity-90"></div>
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=1920')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
-        
-        <div class="relative z-10 max-w-3xl mx-auto reveal-up">
-            <div class="text-lavender-200 text-5xl mb-6 opacity-80">
-                <i class="ph-light ph-butterfly"></i>
-            </div>
-            
-            <h2 class="font-sans text-xs md:text-sm tracking-[0.3em] uppercase mb-8 font-medium">Thank You<br><span class="mt-2 block">For Being Part of My Story</span></h2>
-            
-            <div class="w-16 h-px bg-lavender-200/50 mx-auto mb-8"></div>
-            
-            <p class="font-sans text-[10px] md:text-xs tracking-[0.4em] uppercase text-white/80 mb-12 font-semibold">
-                FRANZ &nbsp;&middot;&nbsp; 09.27.2026
-            </p>
-            
-            <!-- Social / Music Icons -->
-            <div class="flex justify-center items-center gap-6 text-2xl text-lavender-100/70">
-                <a href="#" class="hover:text-white transition-colors"><i class="ph-light ph-instagram-logo"></i></a>
-                <a href="#" class="hover:text-white transition-colors"><i class="ph-light ph-envelope-simple"></i></a>
-            </div>
-        </div>
-    </section>
-
-    
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-white/95 backdrop-blur-md hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox(event)">
-        <button onclick="closeLightbox(event, true)" class="absolute top-6 right-6 text-lavender-300 text-4xl hover:text-lavender-200 focus:outline-none" aria-label="Close image">
-            <i class="ph-light ph-x"></i>
-        </button>
-        <img id="lightbox-img" src="" alt="Enlarged view" class="max-w-full max-h-[90vh] object-contain rounded-sm shadow-2xl scale-95 transition-transform duration-300 border-[12px] border-white">
-    </div>
-
-    <!-- Background Music Toggle -->
-    <audio id="bg-music" loop>
-        <source src="assets/music/background.mp3" type="audio/mpeg">
-    </audio>
-
-    <button id="music-toggle" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-white text-lavender-300 shadow-soft flex items-center justify-center hover:scale-110 transition-transform duration-300 focus:outline-none border border-lavender-100" aria-label="Toggle Background Music">
-        <i class="ph-fill ph-music-note" id="music-icon"></i>
-    </button>
 
     <script>
-        // DOM Elements
-        const navbar = document.getElementById('navbar');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        const musicToggle = document.getElementById('music-toggle');
-        const bgMusic = document.getElementById('bg-music');
-        const musicIcon = document.getElementById('music-icon');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-
-        // Scroll Effects for Navbar
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-md', 'bg-white/95', 'border-b', 'border-lavender-100/50');
-                navbar.classList.remove('bg-transparent', 'border-transparent');
-                navbar.classList.remove('py-5');
-                navbar.classList.add('py-3');
-            } else {
-                navbar.classList.remove('shadow-md', 'bg-white/95', 'border-b', 'border-lavender-100/50');
-                navbar.classList.add('bg-transparent', 'border-transparent');
-                navbar.classList.remove('py-3');
-                navbar.classList.add('py-5');
-            }
-        });
-
-        // Mobile Menu Toggle
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu on link click
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Intersection Observer for Scroll Animations
-        const observerOptions = {
-            root: null,
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Only animate once
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements
-        document.querySelectorAll('.reveal-up, .reveal-fade').forEach(el => {
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                el.classList.add('active');
-            } else {
-                revealObserver.observe(el);
-            }
-        });
-
-        // Music Toggle Logic
-        let isMusicPlaying = false;
-        musicToggle.addEventListener('click', () => {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicIcon.classList.remove('ph-pause');
-                musicIcon.classList.add('ph-music-note');
-            } else {
-                bgMusic.play().then(() => {
-                    musicIcon.classList.remove('ph-music-note');
-                    musicIcon.classList.add('ph-pause');
-                }).catch(err => {
-                    console.log("Audio file missing or requires interaction.");
-                    // Fallback visual feedback if file is missing
-                    musicIcon.classList.remove('ph-music-note');
-                    musicIcon.classList.add('ph-pause');
-                });
-            }
-            isMusicPlaying = !isMusicPlaying;
-        });
-
-        // Lightbox Logic
-        window.openLightbox = function(src) {
-            lightboxImg.src = src;
-            lightbox.classList.remove('hidden');
+        // Subtle Rising Elements Generation
+        const container = document.getElementById('interactive-container');
+        const particleCount = 10; // Keep it low to prevent distraction
+        
+        function createParticle() {
+            const el = document.createElement('div');
+            el.classList.add('rising-element');
+            // Random horizontal position
+            el.style.left = Math.random() * 100 + 'vw';
+            // Random animation delay so they don't all rise at once
+            el.style.animationDelay = (Math.random() * 20) + 's';
+            // Random animation duration for variety
+            el.style.animationDuration = (30 + Math.random() * 20) + 's';
             
-            // Tiny delay to allow display block to apply before opacity transition
-            setTimeout(() => {
-                lightbox.classList.remove('opacity-0');
-                lightboxImg.classList.remove('scale-95');
-                lightboxImg.classList.add('scale-100');
-            }, 10);
-            
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        };
-
-        window.closeLightbox = function(event, forceClose = false) {
-            if (forceClose || event.target === lightbox) {
-                lightbox.classList.add('opacity-0');
-                lightboxImg.classList.remove('scale-100');
-                lightboxImg.classList.add('scale-95');
-                
-                setTimeout(() => {
-                    lightbox.classList.add('hidden');
-                    document.body.style.overflow = ''; // Restore scrolling
-                }, 300); // Matches transition duration
-            }
-        };
-
-        // Close lightbox on Escape key press
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
-                closeLightbox(e, true);
-            }
-        });
-
-        const butterflyContainer = document.createElement('div');
-        butterflyContainer.className = 'fixed inset-0 pointer-events-none z-[45] overflow-hidden';
-        document.body.appendChild(butterflyContainer);
-
-        function createButterfly(x, y) {
-            const butterfly = document.createElement('div');
-            butterfly.className = 'butterfly-element';
-            
-            // Randomize starting position from bottom if coordinates aren't provided
-            const startX = x !== undefined ? x : Math.random() * window.innerWidth;
-            const startY = y !== undefined ? y : window.innerHeight + 50;
-
-            butterfly.style.left = `${startX}px`;
-            butterfly.style.top = `${startY}px`;
-            
-            // Randomize animation duration for a very slow, calm vertical rise
-            const duration = 20 + Math.random() * 20; // 20 to 40 seconds
-            
-            butterfly.style.animation = `riseUp ${duration}s linear forwards`;
-            
-            // Delicate SVG butterfly (static, no flapping or rotating to prevent distraction)
-            butterfly.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width: 100%; height: 100%; fill: #A88CCB; filter: drop-shadow(0 4px 6px rgba(168,140,203,0.3)); opacity: 0.6;">
-                    <path d="M239.52,112.59A48,48,0,0,0,165.73,63.15a47.88,47.88,0,0,0-37.73,18,47.88,47.88,0,0,0-37.73-18,48,48,0,0,0-73.79,49.44c11,36.57,59.39,78.37,103.54,115.11a15.89,15.89,0,0,0,20.3,0C184.47,191.13,232.86,149.33,243.87,112.76ZM128,216.59c-44-36.63-88-75.76-97.66-107.69a32,32,0,0,1,49.2-33,32.22,32.22,0,0,1,48.46,27V128a8,8,0,0,0,16,0V102.9a32.22,32.22,0,0,1,48.46-27,32,32,0,0,1,49.2,33C232.06,140.83,188.1,180,144,216.59Z"></path>
-                </svg>
-            `;
-
-            butterflyContainer.appendChild(butterfly);
-
-            // Remove butterfly from DOM after animation finishes
-            setTimeout(() => {
-                butterfly.remove();
-            }, duration * 1000);
+            container.appendChild(el);
         }
 
-        // Spawn a butterfly continuously from the bottom (slowed down interval)
-        setInterval(() => {
-            createButterfly();
-        }, 3000);
-
-        // Interactive: Spawn cluster of butterflies on click
-        document.addEventListener('click', (e) => {
-            // Ignore clicks on buttons, links, or inputs so we don't block interactions
-            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('button') || e.target.closest('a')) {
-                return; 
-            }
-            
-            // Spawn 3-5 butterflies originating from the click location
-            const spawnCount = Math.floor(Math.random() * 3) + 3;
-            for(let i = 0; i < spawnCount; i++) {
-                setTimeout(() => {
-                    const offsetX = (Math.random() - 0.5) * 60;
-                    const offsetY = (Math.random() - 0.5) * 60;
-                    createButterfly(e.clientX + offsetX, e.clientY + offsetY);
-                }, i * 120);
-            }
-        });
+        for(let i=0; i<particleCount; i++) {
+            createParticle();
+        }
     </script>
 </body>
 </html>
