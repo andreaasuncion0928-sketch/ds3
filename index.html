@@ -172,7 +172,7 @@
             position: relative;
         }
 
-        .about-glass-card {
+        .glass-card {
             position: relative;
             z-index: 2;
             background: rgba(255, 255, 255, 0.85);
@@ -185,12 +185,12 @@
             border: 1px solid rgba(255,255,255,0.5);
         }
 
-        .about-glass-card .script-text {
+        .glass-card .script-text {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
         }
 
-        .about-glass-card p {
+        .glass-card p {
             font-family: var(--font-serif);
             font-size: 1.05rem;
             line-height: 1.8;
@@ -198,7 +198,7 @@
             color: var(--color-dark-ink);
         }
 
-        .about-glass-card .signature {
+        .glass-card .signature {
             font-family: var(--font-script);
             font-size: 2.5rem;
             color: var(--color-deep-lavender);
@@ -215,42 +215,60 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
             padding: 100px 20px;
         }
 
-        .details-subject-img {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: contain;
-            mix-blend-mode: multiply; /* Removes white backgrounds on images */
-            z-index: 1;
-            pointer-events: none; /* Prevents blocking clicks on elements below */
+        .details-layout {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            width: 100%;
+            max-width: 1200px;
+            z-index: 2;
         }
 
-        .details-content {
-            position: relative;
-            z-index: 2;
+        .details-left, .details-right {
+            flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+        }
+        
+        .details-left {
             align-items: center;
-            text-align: center;
         }
 
-        .details-content .section-title {
-            font-size: 3.5rem;
-            margin-bottom: 3rem;
-            color: var(--color-dark-ink);
-            text-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 30px rgba(255,255,255,0.8);
+        .details-left img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80vh; /* Prevents it from getting too massive */
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+        }
+
+        /* The countdown specific styles */
+        .countdown-display {
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-deep-lavender);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            background: rgba(229, 217, 239, 0.4);
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: inline-block;
         }
 
         .details-grid {
             display: flex;
             flex-direction: column;
-            gap: 2.5rem;
+            gap: 2rem;
             width: 100%;
             max-width: 400px;
-            margin-bottom: 3rem;
+            margin: 0 auto 3rem auto;
         }
 
         .detail-item {
@@ -260,11 +278,10 @@
         }
 
         .detail-item svg {
-            width: 40px;
-            height: 40px;
-            fill: var(--color-dark-ink);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
+            width: 35px;
+            height: 35px;
+            fill: var(--color-muted-lilac);
+            margin-bottom: 10px;
         }
 
         .detail-item h4 {
@@ -273,17 +290,16 @@
             text-transform: uppercase;
             margin-bottom: 5px;
             color: var(--color-dark-ink);
-            text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.8);
         }
 
         .detail-item p {
             font-family: var(--font-serif);
             font-style: italic;
             color: var(--color-dark-ink);
-            text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.8);
+            margin-bottom: 0;
         }
 
-        .map-btn {
+        .action-btn {
             display: inline-block;
             padding: 12px 32px;
             background-color: var(--color-dark-ink);
@@ -293,12 +309,10 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             transition: background-color 0.3s ease;
-            position: relative;
-            z-index: 3;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .map-btn:hover {
+        .action-btn:hover {
             background-color: var(--color-deep-lavender);
         }
 
@@ -309,7 +323,9 @@
         }
         
         #traditions .section-title {
+            font-size: 3.5rem;
             margin-bottom: 3rem;
+            color: var(--color-dark-ink);
         }
 
         .traditions-grid {
@@ -366,7 +382,9 @@
         }
         
         #gallery .section-title {
+            font-size: 3.5rem;
             margin-bottom: 3rem;
+            color: var(--color-dark-ink);
         }
 
         .gallery-grid {
@@ -472,14 +490,21 @@
             100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
         }
 
-        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .details-layout {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .details-left img {
+                max-height: 50vh;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
             .hero-script { font-size: 4.5rem; }
-            .about-glass-card { padding: 40px 20px; }
+            .glass-card { padding: 40px 20px; }
             .script-text { font-size: 3rem; }
-            
-            .details-content .section-title { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -509,42 +534,54 @@
 
     <!-- 2. ABOUT -->
     <section id="about">
-        <div class="about-glass-card">
+        <div class="glass-card">
             <div class="script-text">Hello, I'm Franz</div>
             <p>I've always found beauty in the quieter, more intentional moments of life—losing myself in the pages of a classic novel, the soothing rhythm of good jazz music spinning on a relaxed afternoon, and the meticulous, creative art of makeup.</p>
             <p>As I step into this new chapter, I am carrying these passions with me. I'm learning, evolving, and taking the time to embrace the woman I am becoming. Thank you for being part of this beautiful journey.</p>
             <div class="signature">A Little More Me</div>
         </div>
     </section>
-    <!-- 3. EVENT DETAILS -->
+
+    <!-- 3. EVENT DETAILS (UPDATED SPLIT LAYOUT) -->
     <section id="details">
-        <img src="p11.jpeg" class="details-subject-img" alt="Franz">
-        
-        <div class="details-content">
-            <h2 class="script-text section-title">Join Me On This Special Day</h2>
+        <div class="details-layout">
+            <!-- Left Side: Custom Cutout Image -->
+            <div class="details-left">
+                <img src="remove.png" alt="Franz">
+            </div>
             
-            <div class="details-grid">
-                <div class="detail-item">
-                    <!-- Calendar Icon -->
-                    <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
-                    <h4>September 27, 2026</h4>
-                    <p>Sunday</p>
-                </div>
-                <div class="detail-item">
-                    <!-- Clock Icon -->
-                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                    <h4>6:00 PM</h4>
-                    <p>Evening</p>
-                </div>
-                <div class="detail-item">
-                    <!-- Location Icon -->
-                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    <h4>The Grand Magnolia Manor</h4>
-                    <p>Manila, Philippines</p>
+            <!-- Right Side: Readable Glass Card Panel -->
+            <div class="details-right">
+                <div class="glass-card" style="padding: 50px 40px; margin: 0 auto; width: 100%;">
+                    <h2 class="script-text" style="font-size: 3rem;">Join Me On This Special Day</h2>
+                    
+                    <!-- Dynamic Countdown -->
+                    <div class="countdown-display" id="countdown">Calculating days...</div>
+                    
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <!-- Calendar Icon -->
+                            <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
+                            <h4>September 27, 2026</h4>
+                            <p>Sunday</p>
+                        </div>
+                        <div class="detail-item">
+                            <!-- Clock Icon -->
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            <h4>6:00 PM</h4>
+                            <p>Evening</p>
+                        </div>
+                        <div class="detail-item">
+                            <!-- Location Icon -->
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <h4>The Grand Magnolia Manor</h4>
+                            <p>Manila, Philippines</p>
+                        </div>
+                    </div>
+
+                    <a href="#" class="action-btn">See Directions</a>
                 </div>
             </div>
-
-            <a href="#" class="map-btn">View Map</a>
         </div>
     </section>
 
@@ -588,8 +625,6 @@
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+2" alt="Gallery 2"></div>
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+3" alt="Gallery 3"></div>
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+4" alt="Gallery 4"></div>
-            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+5" alt="Gallery 5"></div>
-            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+6" alt="Gallery 6"></div>
         </div>
     </section>
 
@@ -598,7 +633,7 @@
         <div class="rsvp-card">
             <h2 class="script-text">Will you be there?</h2>
             <p>Please let us know if you can join me to celebrate this special day.</p>
-            <a href="#" class="map-btn">RSVP Now</a>
+            <a href="#" class="action-btn">RSVP Now</a>
         </div>
     </section>
 
@@ -615,6 +650,34 @@
             document.body.classList.remove('no-scroll');
             document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Live Countdown Logic
+        function updateCountdown() {
+            const eventDate = new Date("September 27, 2026 18:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            
+            // Calculate full days left
+            const days = Math.ceil(distance / (1000 * 60 * 60 * 24));
+            
+            const countdownEl = document.getElementById("countdown");
+            
+            if (days > 1) {
+                countdownEl.innerText = days + " days left";
+            } else if (days === 1) {
+                countdownEl.innerText = "1 day left";
+            } else if (days === 0) {
+                countdownEl.innerText = "The day is finally here!";
+            } else {
+                countdownEl.innerText = "The beautiful day has passed";
+            }
+        }
+        
+        // Run immediately to prevent flickering placeholder text
+        updateCountdown();
+        
+        // Optional: Update daily if user leaves the tab open for a long time
+        setInterval(updateCountdown, 1000 * 60 * 60);
 
         // Interactive background: Very slow, subtle rising circles
         const container = document.getElementById('interactive-container');
