@@ -1,10 +1,14 @@
-<!-- web_code_canvas: index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Franz's 18th Birthday</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
     <style>
         /* CSS VARIABLES */
         :root {
@@ -14,14 +18,13 @@
             --color-deep-lavender: #755394;
             --color-dark-ink: #30243C;
             --color-white: #FFFFFF;
-            --color-sage: #D1D9C5; /* Elegant extended green background */
+            --color-sage: #D1D9C5;
             
             --font-script: 'Great Vibes', cursive;
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Montserrat', sans-serif;
         }
 
-        /* RESET & BASE STYLES */
         * {
             margin: 0;
             padding: 0;
@@ -34,20 +37,18 @@
             background-color: var(--color-ivory);
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Class to lock scroll on the homepage */
+        /* Lock scroll on the homepage */
         body.no-scroll {
             overflow: hidden;
+            height: 100vh;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-        }
-
-        ul {
-            list-style: none;
         }
 
         /* TYPOGRAPHY */
@@ -65,7 +66,6 @@
 
         /* SECTION STYLES */
         section {
-            padding: 100px 20px;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -73,9 +73,9 @@
             justify-content: center;
         }
 
-        /* --- HOME / HERO SECTION --- */
         #home {
             height: 100vh;
+            width: 100%;
             padding: 0 20px;
             background-image: url('home.jpeg'); 
             background-size: cover; 
@@ -88,12 +88,11 @@
             position: relative;
         }
 
-        /* Soft overlay to ensure text readability */
         #home::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.4); 
+            background: rgba(255, 255, 255, 0.35); 
             z-index: 1;
         }
 
@@ -165,9 +164,9 @@
             color: var(--color-white);
         }
 
-        /* --- ABOUT SECTION --- */
         #about {
             min-height: 100vh;
+            padding: 100px 20px;
             background-image: url('cover.jpg'); 
             background-size: cover;
             background-position: center;
@@ -208,13 +207,18 @@
             margin-top: 2rem;
         }
 
-        /* --- EVENT DETAILS (Split Layout) --- */
         #details {
-            padding: 0; /* Reset padding for full-bleed layout */
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             width: 100%;
             background-color: var(--color-sage);
+        }
+
+        @media (min-width: 768px) {
+            #details {
+                flex-direction: row;
+                min-height: 100vh;
+            }
         }
 
         .details-left {
@@ -222,12 +226,18 @@
             background-image: url('p10.jpeg');
             background-size: cover;
             background-position: center;
-            min-height: 100vh;
+            min-height: 50vh;
+        }
+
+        @media (min-width: 768px) {
+            .details-left {
+                min-height: 100vh;
+            }
         }
 
         .details-right {
             flex: 1;
-            padding: 80px 60px;
+            padding: 80px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -279,6 +289,8 @@
         }
 
         .detail-item p {
+            font-family: var(--font-serif);
+            font-style: italic;
             color: var(--color-dark-ink);
             opacity: 0.8;
         }
@@ -299,17 +311,20 @@
             background-color: var(--color-deep-lavender);
         }
 
-        /* --- THE 18 TRADITIONS --- */
         #traditions {
             background-color: var(--color-ivory);
             text-align: center;
             padding: 100px 20px;
         }
+        
+        #traditions .section-title {
+            margin-bottom: 3rem;
+        }
 
         .traditions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
@@ -322,8 +337,8 @@
         }
 
         .tradition-icon {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border: 1px solid var(--color-muted-lilac);
             border-radius: 50%;
             display: flex;
@@ -331,24 +346,36 @@
             justify-content: center;
             margin-bottom: 15px;
             color: var(--color-deep-lavender);
+            transition: transform 0.3s ease;
+        }
+        
+        .tradition-item:hover .tradition-icon {
+            transform: scale(1.05);
+            background-color: rgba(180, 154, 207, 0.1);
         }
 
         .tradition-icon svg {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             fill: currentColor;
         }
 
         .tradition-item span {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             color: var(--color-dark-ink);
         }
 
-        /* --- GALLERY --- */
         #gallery {
             background-color: var(--color-white);
             padding: 100px 20px;
+            text-align: center;
+        }
+        
+        #gallery .section-title {
+            margin-bottom: 3rem;
         }
 
         .gallery-grid {
@@ -363,7 +390,7 @@
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 4px;
             aspect-ratio: 4/5;
             background-color: var(--color-soft-lavender);
             cursor: pointer;
@@ -373,14 +400,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
-        /* --- RSVP --- */
         #rsvp {
             background-color: var(--color-ivory);
             text-align: center;
@@ -405,12 +431,11 @@
             color: var(--color-dark-ink);
         }
 
-        /* --- CLOSING --- */
         #closing {
             background-color: var(--color-dark-ink);
             color: var(--color-white);
             text-align: center;
-            padding: 80px 20px;
+            padding: 100px 20px;
         }
 
         #closing .script-text {
@@ -423,8 +448,13 @@
             font-size: 0.9rem;
             text-transform: uppercase;
         }
+        
+        .closing-date {
+            margin-top: 20px; 
+            font-size: 0.75rem; 
+            color: var(--color-muted-lilac);
+        }
 
-        /* --- INTERACTIVE RISING ELEMENTS --- */
         .interactive-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -435,47 +465,34 @@
 
         .rising-element {
             position: absolute;
-            bottom: -20px;
-            width: 15px;
-            height: 15px;
+            bottom: -50px;
+            width: 12px;
+            height: 12px;
             background-color: var(--color-muted-lilac);
             opacity: 0.15; 
             border-radius: 50%;
-            animation: floatUp 35s linear infinite; 
+            animation: floatUp linear infinite; 
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 0; }
-            5% { opacity: 0.15; }
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.15; }
             90% { opacity: 0.15; }
-            100% { transform: translateY(-110vh); opacity: 0; }
+            100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
         }
 
-        /* Responsive */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
             .hero-script { font-size: 4.5rem; }
             .about-glass-card { padding: 40px 20px; }
-            
-            /* Responsive Details Section */
-            #details {
-                flex-direction: column;
-            }
-            .details-left {
-                width: 100%;
-                min-height: 50vh;
-            }
-            .details-right {
-                width: 100%;
-                padding: 60px 20px;
-            }
+            .script-text { font-size: 3rem; }
+            .details-right { padding: 60px 20px; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
 <body class="no-scroll">
 
-    <!-- Subtle Rising Elements Container -->
     <div class="interactive-container" id="interactive-container"></div>
 
     <!-- 1. HOMEPAGE / HERO -->
@@ -492,7 +509,6 @@
                 <span>The Grand Magnolia Manor</span>
             </div>
 
-            <!-- Unlocks scrolling and navigates down -->
             <button class="explore-btn" onclick="unlockScrollAndExplore()">
                 Explore
             </button>
@@ -511,25 +527,25 @@
 
     <!-- 3. EVENT DETAILS (Split Layout) -->
     <section id="details">
-        <!-- Left Side: Image -->
         <div class="details-left"></div>
-        
-        <!-- Right Side: Green Background & Info -->
         <div class="details-right">
             <h2 class="script-text section-title">Join Me On This Special Day</h2>
             
             <div class="details-grid">
                 <div class="detail-item">
+                    <!-- Calendar Icon -->
                     <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg>
                     <h4>September 27, 2026</h4>
                     <p>Sunday</p>
                 </div>
                 <div class="detail-item">
+                    <!-- Clock Icon -->
                     <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
                     <h4>6:00 PM</h4>
                     <p>Evening</p>
                 </div>
                 <div class="detail-item">
+                    <!-- Location Icon -->
                     <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                     <h4>The Grand Magnolia Manor</h4>
                     <p>Manila, Philippines</p>
@@ -542,23 +558,31 @@
 
     <!-- 4. THE 18 TRADITIONS -->
     <section id="traditions">
-        <h2 class="script-text section-title">My 18 Traditions</h2>
+        <h2 class="script-text section-title">The 18</h2>
         
         <div class="traditions-grid">
             <div class="tradition-item">
-                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+                <div class="tradition-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </div>
                 <span>18 Roses</span>
             </div>
             <div class="tradition-item">
-                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div>
+                <div class="tradition-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                </div>
                 <span>18 Blue Bills</span>
             </div>
             <div class="tradition-item">
-                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg></div>
+                <div class="tradition-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                </div>
                 <span>18 Treasures</span>
             </div>
             <div class="tradition-item">
-                <div class="tradition-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                <div class="tradition-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
                 <span>18 Guests</span>
             </div>
         </div>
@@ -572,6 +596,8 @@
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+2" alt="Gallery 2"></div>
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+3" alt="Gallery 3"></div>
             <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+4" alt="Gallery 4"></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+5" alt="Gallery 5"></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/E5D9EF/755394?text=Photo+6" alt="Gallery 6"></div>
         </div>
     </section>
 
@@ -588,7 +614,7 @@
     <section id="closing">
         <div class="script-text">Thank You</div>
         <p>For being part of my story</p>
-        <p style="margin-top: 10px; font-size: 0.8rem; color: var(--color-muted-lilac);">FRANZ &bull; 09.27.2026</p>
+        <p class="closing-date">FRANZ &bull; 09.27.2026</p>
     </section>
 
     <script>
@@ -598,21 +624,32 @@
             document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Subtle Rising Elements Generation
+        // Interactive background: Very slow, subtle rising circles
         const container = document.getElementById('interactive-container');
-        const particleCount = 10; 
+        const particleCount = 15; 
         
         function createParticle() {
             const el = document.createElement('div');
             el.classList.add('rising-element');
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDelay = (Math.random() * 20) + 's';
-            el.style.animationDuration = (30 + Math.random() * 20) + 's';
             
+            // Random horizontal start position
+            el.style.left = Math.random() * 100 + 'vw';
+            
+            // Stagger animations so they don't appear in a straight line
+            el.style.animationDelay = (Math.random() * 20) + 's';
+            
+            // Vary the speed so they drift uniquely (very slow)
+            el.style.animationDuration = (35 + Math.random() * 25) + 's';
+            
+            // Small size variations
+            const scale = 0.5 + Math.random() * 1;
+            el.style.transform = `scale(${scale})`;
+
             container.appendChild(el);
         }
 
-        for(let i=0; i<particleCount; i++) {
+        // Initialize particles
+        for(let i = 0; i < particleCount; i++) {
             createParticle();
         }
     </script>
