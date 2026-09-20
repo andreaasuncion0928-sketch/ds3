@@ -16,6 +16,7 @@
             --color-muted-lilac: #B49ACF;
             --color-deep-lavender: #755394;
             --color-dark-ink: #30243C;
+            --color-sage: #D1D9C5;
             --color-white: #FFFFFF;
             
             --font-script: 'Great Vibes', cursive;
@@ -38,7 +39,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Lock scroll on the homepage */
+        /* Lock scroll on the homepage until explore is clicked */
         body.no-scroll {
             overflow: hidden;
             height: 100vh;
@@ -65,7 +66,7 @@
         .glass-card {
             position: relative;
             z-index: 2;
-            background: rgba(255, 255, 255, 0.2); /* 20% Opacity */
+            background: rgba(255, 255, 255, 0.2); /* Exactly 20% Opacity */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 60px 50px;
@@ -284,7 +285,7 @@
             color: var(--color-deep-lavender);
             margin-bottom: 2rem;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.6);
             padding: 8px 20px;
             border-radius: 30px;
             display: inline-block;
@@ -438,7 +439,7 @@
             right: 20px;
             font-size: 1.8rem;
             color: var(--color-white);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             cursor: pointer;
             background: none;
             border: none;
@@ -450,21 +451,28 @@
             transform: scale(1.1);
         }
 
+        /* PURE WHITE TEXT ENFORCEMENT FOR MODAL */
+        .modal-card h3,
+        .modal-card p,
+        .modal-title,
+        .modal-subtitle,
+        .modal-description,
+        .highlight-role {
+            color: #FFFFFF !important;
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.6); /* Drop shadow to ensure readability */
+        }
+
         .modal-title {
             font-family: var(--font-sans);
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--color-white);
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         .modal-subtitle {
             font-family: var(--font-script);
             font-size: 3.2rem;
-            color: var(--color-white); 
-            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
             margin-bottom: 1.5rem;
             line-height: 1.1;
         }
@@ -473,20 +481,18 @@
             font-family: var(--font-serif); 
             font-size: 1rem; 
             font-style: italic; 
-            color: var(--color-white);
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
 
         .name-input {
             width: 100%;
             padding: 15px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 30px;
             margin: 20px 0;
             font-family: var(--font-sans);
             font-size: 0.95rem;
             outline: none;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             text-align: center;
             letter-spacing: 0.05em;
             color: var(--color-dark-ink);
@@ -500,14 +506,11 @@
 
         .modal-result {
             display: none;
-            color: var(--color-white);
         }
 
         .modal-result h3 {
             font-family: var(--font-script);
             font-size: 3.2rem;
-            color: var(--color-white);
-            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
             margin-bottom: 1rem;
             line-height: 1.2;
         }
@@ -518,7 +521,6 @@
             font-size: 1.2rem;
             line-height: 1.8;
             margin-bottom: 15px;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
 
         .modal-result .highlight-role {
@@ -528,12 +530,10 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             font-size: 0.9rem;
-            color: var(--color-white);
-            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
             display: inline-block;
             margin-top: 10px;
             padding-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.4);
+            border-top: 1px solid rgba(255,255,255,0.6);
         }
 
         /* --- GALLERY SECTION --- */
@@ -567,7 +567,6 @@
             border-radius: 4px;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            /* Soft white photo border to enhance photobook feel */
             border: 15px solid rgba(255, 255, 255, 0.9); 
             background: #fff;
         }
@@ -579,13 +578,13 @@
             object-fit: cover;
             opacity: 0;
             transform: scale(1);
-            /* Long fade in/out and continuous slow zoom */
+            /* Ken burns / smooth crossfade */
             transition: opacity 2.5s ease-in-out, transform 12s linear;
         }
 
         .slide.active {
             opacity: 1;
-            transform: scale(1.1); /* Slow zoom effect */
+            transform: scale(1.1);
         }
 
         /* --- RSVP --- */
@@ -681,7 +680,7 @@
             text-transform: uppercase;
         }
 
-        /* --- PARTICLES --- */
+        /* --- PARTICLES & MISC --- */
         .interactive-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -708,6 +707,38 @@
             100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
         }
 
+        /* Floating Music Button */
+        .music-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            color: var(--color-deep-lavender);
+        }
+
+        .music-toggle-btn:hover {
+            background-color: var(--color-white);
+            transform: scale(1.05);
+        }
+
+        .music-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .details-layout {
@@ -724,10 +755,25 @@
             .hero-script { font-size: 4.5rem; }
             .glass-card, .modal-card { padding: 40px 20px; }
             .script-text { font-size: 3rem; }
+            .music-toggle-btn { bottom: 15px; right: 15px; width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body class="no-scroll">
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Floating Music Controls -->
+    <button class="music-toggle-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle Music">
+        <!-- Play Icon by default -->
+        <svg id="musicIcon" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+    </button>
 
     <!-- Subtle interactive background -->
     <div class="interactive-container" id="interactive-container"></div>
@@ -745,6 +791,7 @@
                 <span>The Grand Magnolia Manor</span>
             </div>
 
+            <!-- Unlocks scroll and plays music -->
             <button class="explore-btn" onclick="unlockScrollAndExplore()">
                 Explore
             </button>
@@ -904,10 +951,47 @@
     </section>
 
     <script>
-        // Unlocks scrolling and smoothly moves to the About section
+        
+        // --- Music Controls ---
+        const audio = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('musicIcon');
+        let isMusicPlaying = false;
+
+        function playAudio() {
+            audio.play().then(() => {
+                isMusicPlaying = true;
+                updateMusicIcon();
+            }).catch(e => {
+                console.log("Autoplay blocked by browser. User interaction required.");
+            });
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                audio.pause();
+                isMusicPlaying = false;
+            } else {
+                playAudio();
+            }
+            updateMusicIcon();
+        }
+
+        function updateMusicIcon() {
+            if (isMusicPlaying) {
+                // Pause Icon
+                musicIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+            } else {
+                // Play Icon
+                musicIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+            }
+        }
+
+        // --- Interaction Logic ---
+        // Unlocks scrolling, plays music, and smoothly moves to the About section
         function unlockScrollAndExplore() {
             document.body.classList.remove('no-scroll');
             document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+            playAudio(); // Start music on primary interaction
         }
 
         // Live Countdown Logic (Target: Sept 22, 2027)
@@ -933,7 +1017,7 @@
         updateCountdown();
         setInterval(updateCountdown, 1000 * 60 * 60);
 
-        // Modal Logic
+        // --- Modal Logic ---
         const modalOverlay = document.getElementById('traditionModal');
         const formSection = document.getElementById('modalFormSection');
         const resultSection = document.getElementById('modalResultSection');
@@ -981,7 +1065,7 @@
             resultSection.style.display = 'block';
         }
 
-        // Nostalgic Gallery Slideshow Logic
+        // --- Nostalgic Gallery Slideshow Logic ---
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
 
@@ -998,7 +1082,8 @@
         // Change slide every 4.5 seconds for slow, nostalgic feel
         setInterval(nextSlide, 4500);
 
-        // Interactive background: Very slow, subtle rising circles
+        // --- Interactive background ---
+        // Very slow, subtle rising circles
         const particleContainer = document.getElementById('interactive-container');
         const particleCount = 15; 
         
