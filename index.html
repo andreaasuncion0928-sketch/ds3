@@ -67,11 +67,12 @@
             z-index: 2;
             background: rgba(255, 255, 255, 0.2); /* 20% Opacity */
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 60px 50px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.4);
         }
 
         .action-btn {
@@ -83,7 +84,7 @@
             font-size: 0.85rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             cursor: pointer;
             border: none;
@@ -92,6 +93,7 @@
 
         .action-btn:hover {
             background-color: var(--color-deep-lavender);
+            transform: translateY(-2px);
         }
 
         section {
@@ -236,7 +238,7 @@
             background-image: url('cover2.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -271,7 +273,7 @@
             max-height: 75vh; 
             object-fit: cover;
             border-radius: 12px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
             border: 4px solid rgba(255,255,255,0.4);
         }
 
@@ -281,11 +283,12 @@
             text-transform: uppercase;
             color: var(--color-deep-lavender);
             margin-bottom: 2rem;
-            font-weight: 500;
-            background: rgba(229, 217, 239, 0.4);
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.4);
             padding: 8px 20px;
             border-radius: 30px;
             display: inline-block;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .details-grid {
@@ -333,7 +336,6 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-repeat: no-repeat;
             min-height: 100vh;
             padding: 100px 20px;
         }
@@ -350,8 +352,9 @@
         }
 
         .traditions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 3rem;
             width: 100%;
             margin: 0 auto 3rem auto;
@@ -361,6 +364,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 150px;
         }
 
         .tradition-icon {
@@ -399,6 +403,7 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--color-dark-ink);
+            text-align: center;
         }
 
         /* --- MODAL --- */
@@ -425,7 +430,6 @@
             width: 90%;
             max-width: 500px;
             padding: 50px 40px;
-            /* Modal uses the same 20% global glass card style */
         }
 
         .modal-close {
@@ -433,64 +437,77 @@
             top: 15px;
             right: 20px;
             font-size: 1.8rem;
-            color: var(--color-dark-ink);
+            color: var(--color-white);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
             cursor: pointer;
             background: none;
             border: none;
             font-family: var(--font-sans);
-            transition: color 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .modal-close:hover {
-            color: var(--color-white);
+            transform: scale(1.1);
         }
 
         .modal-title {
             font-family: var(--font-sans);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--color-dark-ink);
+            color: var(--color-white);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         .modal-subtitle {
             font-family: var(--font-script);
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             color: var(--color-white); 
-            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
             margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .modal-description {
+            font-family: var(--font-serif); 
+            font-size: 1rem; 
+            font-style: italic; 
+            color: var(--color-white);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
 
         .name-input {
             width: 100%;
             padding: 15px 20px;
-            border: 1px solid rgba(180, 154, 207, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 30px;
             margin: 20px 0;
             font-family: var(--font-sans);
             font-size: 0.95rem;
             outline: none;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.8);
             text-align: center;
             letter-spacing: 0.05em;
+            color: var(--color-dark-ink);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .name-input:focus {
-            border-color: var(--color-deep-lavender);
-            background: rgba(255, 255, 255, 0.8);
+            border-color: var(--color-white);
+            background: var(--color-white);
         }
 
         .modal-result {
             display: none;
-            color: var(--color-dark-ink);
+            color: var(--color-white);
         }
 
         .modal-result h3 {
             font-family: var(--font-script);
             font-size: 3.2rem;
             color: var(--color-white);
-            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
             margin-bottom: 1rem;
             line-height: 1.2;
         }
@@ -501,6 +518,7 @@
             font-size: 1.2rem;
             line-height: 1.8;
             margin-bottom: 15px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
 
         .modal-result .highlight-role {
@@ -524,7 +542,6 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-repeat: no-repeat;
             min-height: 100vh;
             padding: 100px 20px;
             text-align: center;
@@ -549,9 +566,9 @@
             aspect-ratio: 4/5;
             border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
             /* Soft white photo border to enhance photobook feel */
-            border: 15px solid rgba(255, 255, 255, 0.85); 
+            border: 15px solid rgba(255, 255, 255, 0.9); 
             background: #fff;
         }
 
@@ -573,10 +590,16 @@
 
         /* --- RSVP --- */
         #rsvp {
-            background-color: var(--color-white);
+            background-image: url('cover3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
             text-align: center;
             padding: 100px 20px;
-            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23b49acf" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .rsvp-wrapper {
@@ -586,10 +609,59 @@
         }
 
         .rsvp-wrapper p {
-            margin: 20px 0 30px 0;
+            margin: 10px 0 25px 0;
             font-family: var(--font-serif);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--color-dark-ink);
+        }
+
+        .qr-code {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin: 10px auto 30px auto;
+            border: 5px solid rgba(255,255,255,0.8);
+            display: block;
+        }
+        
+        .dress-code-section {
+            margin-top: 20px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.4);
+        }
+        
+        .dress-code-title {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--color-dark-ink);
+            margin-bottom: 5px;
+        }
+        
+        .dress-code-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+        .color-swatches {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .swatch {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         /* --- CLOSING --- */
@@ -597,24 +669,16 @@
             background-color: var(--color-dark-ink);
             color: var(--color-white);
             text-align: center;
-            padding: 100px 20px;
+            padding: 80px 20px;
         }
 
-        #closing .script-text {
-            color: var(--color-soft-lavender);
-            margin-bottom: 20px;
-        }
-
-        #closing p {
-            letter-spacing: 0.1em;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-        
         .closing-date {
-            margin-top: 20px; 
-            font-size: 0.75rem; 
-            color: var(--color-muted-lilac);
+            margin-top: 10px; 
+            font-family: var(--font-sans);
+            letter-spacing: 0.15em;
+            font-size: 0.8rem; 
+            color: var(--color-soft-lavender);
+            text-transform: uppercase;
         }
 
         /* --- PARTICLES --- */
@@ -700,7 +764,7 @@
         <div class="details-layout">
             <!-- Left Side: Image -->
             <div class="details-left">
-                <img src="p2.jpeg" alt="Franz Portrait">
+                <img src="p2.jpeg" alt="Franz Portrait" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Portrait'">
             </div>
             
             <!-- Right Side: 20% Glass Card Panel -->
@@ -782,7 +846,7 @@
             <div id="modalFormSection">
                 <h3 class="modal-title">A Note, Just for You</h3>
                 <div class="modal-subtitle">A little something from Franz ♡</div>
-                <p style="font-family: var(--font-serif); font-size: 0.95rem; font-style: italic; color: var(--color-dark-ink);">Enter your name to discover your personal note.</p>
+                <p class="modal-description">Enter your name to discover your personal note.</p>
                 <form onsubmit="checkName(event)">
                     <input type="text" id="guestName" class="name-input" placeholder="Your name" required autocomplete="off">
                     <button type="submit" class="action-btn" style="width: 100%;">Reveal My Note &rarr;</button>
@@ -801,13 +865,13 @@
             <h2 class="script-text section-title">Moments That Matter</h2>
             
             <div class="slideshow-container">
-                <img src="p11.jpeg" class="slide active" alt="Memory 1">
-                <img src="p12.jpeg" class="slide" alt="Memory 2">
-                <img src="p13.jpeg" class="slide" alt="Memory 3">
-                <img src="p14.jpeg" class="slide" alt="Memory 4">
-                <img src="p15.jpeg" class="slide" alt="Memory 5">
-                <img src="p16.jpeg" class="slide" alt="Memory 6">
-                <img src="p17.jpeg" class="slide" alt="Memory 7">
+                <img src="p11.jpeg" class="slide active" alt="Memory 1" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+1'">
+                <img src="p12.jpeg" class="slide" alt="Memory 2" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+2'">
+                <img src="p13.jpeg" class="slide" alt="Memory 3" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+3'">
+                <img src="p14.jpeg" class="slide" alt="Memory 4" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+4'">
+                <img src="p15.jpeg" class="slide" alt="Memory 5" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+5'">
+                <img src="p16.jpeg" class="slide" alt="Memory 6" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+6'">
+                <img src="p17.jpeg" class="slide" alt="Memory 7" onerror="this.src='https://placehold.co/400x500/E5D9EF/755394?text=Photo+7'">
             </div>
         </div>
     </section>
@@ -816,13 +880,26 @@
         <div class="glass-card rsvp-wrapper">
             <h2 class="script-text" style="font-size: 3.5rem;">Will you be there?</h2>
             <p>Please let us know if you can join me to celebrate this special day.</p>
-            <a href="#" class="action-btn">RSVP Now</a>
+            
+            <!-- QR Code -->
+            <img src="sampleQR.png" alt="Scan to RSVP" class="qr-code" onerror="this.src='https://placehold.co/200x200/FFFFFF/30243C?text=QR+Code'">
+            
+            <a href="#" class="action-btn">RSVP Online</a>
+            
+            <!-- Dress Code -->
+            <div class="dress-code-section">
+                <h3 class="dress-code-title">Dress Code</h3>
+                <p class="dress-code-text">See you wearing White or Purple formal/semi-formal attire.</p>
+                <div class="color-swatches">
+                    <div class="swatch" style="background-color: #FFFFFF;" title="White"></div>
+                    <div class="swatch" style="background-color: #E5D9EF;" title="Soft Purple"></div>
+                    <div class="swatch" style="background-color: #755394;" title="Deep Purple"></div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="closing">
-        <div class="script-text">Thank You</div>
-        <p>For being part of my story</p>
         <p class="closing-date">FRANZ &bull; 09.22.2027</p> 
     </section>
 
@@ -862,7 +939,7 @@
         const resultSection = document.getElementById('modalResultSection');
         const guestInput = document.getElementById('guestName');
         
-        // Exact 18 Tradition Mappings
+        // Exact Tradition Mappings
         const partOf18 = {
             "drew asuncion": "18 Roses",
             "andrea asuncion": "18 Blue Bills",
@@ -918,7 +995,7 @@
             slides[currentSlide].classList.add('active');
         }
 
-        // Change slide every 4.5 seconds
+        // Change slide every 4.5 seconds for slow, nostalgic feel
         setInterval(nextSlide, 4500);
 
         // Interactive background: Very slow, subtle rising circles
