@@ -703,7 +703,7 @@
             </div>
 
             <!-- New Button -->
-            <button class="action-btn" onclick="openModal()">Discover Your Place</button>
+            <button class="action-btn" onclick="openModal()">A Note, Just for You</button>
         </div>
     </section>
 
@@ -713,11 +713,11 @@
             <button class="modal-close" onclick="closeModal()">×</button>
             
             <div id="modalFormSection">
-                <h3 class="modal-title script-text" style="color: var(--color-dark-ink);">Are you part of my 18?</h3>
-                <p style="font-size: 0.9rem;">Enter your name below to see your place.</p>
+                <h3 class="modal-title" style="color: var(--color-dark-ink); font-size: 1.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--font-serif);">A Note, Just for You</h3>
+                <p style="font-size: 0.9rem;">A little something from Franz ♡<br><br>Enter your name to discover your personal note.</p>
                 <form onsubmit="checkName(event)">
-                    <input type="text" id="guestName" class="name-input" placeholder="e.g. Drew Asuncion" required>
-                    <button type="submit" class="action-btn" style="width: 100%;">Check</button>
+                    <input type="text" id="guestName" class="name-input" placeholder="Your name" required>
+                    <button type="submit" class="action-btn" style="width: 100%;">Reveal My Note &rarr;</button>
                 </form>
             </div>
 
@@ -795,8 +795,8 @@
         // Lookup Table for The 18
         const partOf18 = {
             "drew asuncion": "18 Roses",
-            "jane doe": "18 Candles",       // Dummy name
-            "john smith": "18 Blue Bills"   // Dummy name
+            "andrea asuncion": "18 Blue Bills",
+            "mavis godani": "18 Candles"
         };
 
         function openModal() {
@@ -820,14 +820,14 @@
                 // Yes! Part of the 18
                 const role = partOf18[name];
                 resultSection.innerHTML = `
-                    <p>A little something for you, Franz's way. ♡</p>
-                    <p style="font-size: 1.3rem; margin: 15px 0;">You're part of my <strong style="color: var(--color-deep-lavender);">${role}</strong>.</p>
+                    <h3 style="font-family: var(--font-serif); margin-bottom: 10px; color: var(--color-dark-ink);">A little something for you, Franz's way. ♡</h3>
+                    <p style="font-size: 1.1rem; margin: 15px 0;">You're part of my <strong style="color: var(--color-deep-lavender);">${role}</strong>.</p>
                     <p>Thank you for being part of this special chapter in my life. I'm looking forward to celebrating this moment with you.</p>
                 `;
             } else {
                 // No. General Guest
                 resultSection.innerHTML = `
-                    <p>You're still part of my story. ♡</p>
+                    <h3 style="font-family: var(--font-serif); margin-bottom: 10px; color: var(--color-dark-ink);">You're part of my story. ♡</h3>
                     <p style="margin: 15px 0;">You may not be part of one of my 18 traditions, but having you celebrate this special day with me means so much.</p>
                     <p>I hope to see you there!</p>
                 `;
